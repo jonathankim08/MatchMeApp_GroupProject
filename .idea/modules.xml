@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MatchMeApp_GroupProject.iml" filepath="$PROJECT_DIR$/MatchMeApp_GroupProject.iml" />
+      <module fileurl="file://C:\Users\jyoty\AndroidStudioProjects\MatchMeApp_GroupProject\MatchMeApp_GroupProject.iml" filepath="C:\Users\jyoty\AndroidStudioProjects\MatchMeApp_GroupProject\MatchMeApp_GroupProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\jyoty\AndroidStudioProjects\MatchMeApp_GroupProject\app\app.iml" filepath="C:\Users\jyoty\AndroidStudioProjects\MatchMeApp_GroupProject\app\app.iml" />
     </modules>
   </component>
 </project>
