@@ -11,3 +11,4 @@ public class MyMeetingsActivity extends Activity {
         setContentView(R.layout.activity_my_meetings);
     }
 }
+
