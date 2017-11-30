@@ -47,6 +47,13 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etTitle" />
+
+    <ListView
+        android:layout_width="368dp"
+        android:layout_height="56dp"
+        android:headerDividersEnabled="false"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="140dp" />
 </android.support.constraint.ConstraintLayout>
 
 
