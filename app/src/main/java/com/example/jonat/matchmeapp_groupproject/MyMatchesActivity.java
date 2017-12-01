@@ -19,7 +19,7 @@ import java.util.List;
 public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
     private EditText etTitle, etMyatches;
-    private ListView lvCurrentMatches, lvPastMatches;
+    private ListView lvCurrentMatches;
 
     private String[] NAMES  = {"Mike","Neil"};
     private String[] GAMES = {"Tennis","Chess"};
@@ -32,13 +32,9 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_my_matches);
 
         lvCurrentMatches = findViewById(R.id.lvCurrentMatches);
-        lvPastMatches = findViewById(R.id.lvPastMatches);
 
         CustomAdaptor customAdaptor = new CustomAdaptor();
         lvCurrentMatches.setAdapter(customAdaptor);
-        lvPastMatches.setAdapter(customAdaptor);
-
-
     }
 
     class CustomAdaptor extends BaseAdapter {

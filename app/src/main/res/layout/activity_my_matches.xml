@@ -24,25 +24,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/coocolor"
-        android:layout_width="fill_parent"
-        android:layout_height="11dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:paddingBottom="2dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="2dp"
-        android:scaleType="fitXY"
-        android:src="@android:drawable/divider_horizontal_dark"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTitle" />
-
     <EditText
         android:id="@+id/etMyMatches"
         android:layout_width="350dp"
@@ -51,12 +32,10 @@
         android:inputType="textPersonName"
         android:text="Upcoming Matches"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/coocolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTitle"
-        app:layout_constraintVertical_bias="0.314" />
+        app:layout_constraintTop_toBottomOf="@+id/etTitle" />
 
     <ListView
         android:id="@+id/lvCurrentMatches"
@@ -65,8 +44,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="130dp" />
+        tools:layout_editor_absoluteY="115dp" />
 
     <EditText
         android:id="@+id/etPastMatches"
