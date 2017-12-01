@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Upcoming Matches and History"
+        android:text="Upcoming Matches"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/coocolor"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,5 +81,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="379dp" />
+
+    <ListView
+        android:id="@+id/lvPastMatches"
+        android:layout_width="368dp"
+        android:layout_height="84dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="427dp" />
 
 </android.support.constraint.ConstraintLayout>
