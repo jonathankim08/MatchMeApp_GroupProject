@@ -21,9 +21,9 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
     private EditText etTitle, etMyatches;
     private ListView lvCurrentMatches, lvPastMatches;
 
-    private String[] NAMES  = {"Mike","Neil","Jyoty","Jonathan","Arjun"};
+    private String[] NAMES  = {"Mike","Neil"};
     private String[] GAMES = {"Tennis","Chess"};
-    private String[] DAYTIME = {"Monday, 9-11am","Friday 6-8pm","Saturday 1-3pm"};
+    private String[] DAYTIME = {"Friday 6-8pm","Saturday 1-3pm"};
     private String[] LOCATION = {"Burns Park Tennis Courts","Union Chess Hall"};
 
     @Override
