@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">MatchMeApp_GroupProject</string>
+    <string name="tennis_prompt">Choose your tennis level</string>
+    <string-array name="tennis_level">
+        <item>Beginner</item>
+        <item>Intermediate</item>
+        <item>Advanced</item>
+    </string-array>
+    <string name="chess_prompt">Choose your chess level</string>
+    <string-array name="chess_level">
+        <item>Beginner</item>
+        <item>Intermediate</item>
+        <item>Advanced</item>
+    </string-array>
 </resources>
