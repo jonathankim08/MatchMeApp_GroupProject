@@ -1,14 +1,18 @@
 package com.example.jonat.matchmeapp_groupproject;
 
 import android.app.Activity;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,6 +25,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
     private String[] GAMES = {"Tennis","Chess"};
     private String[] DAYTIME = {"Monday, 9-11am","Friday 6-8pm","Saturday 1-3pm"};
     private String[] LOCATION = {"Burns Park Tennis Courts","Union Chess Hall"};
+    private int[] IMAGES = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,8 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         CustomAdaptor customAdaptor = new CustomAdaptor();
         lvCurrentMatches.setAdapter(customAdaptor);
         lvPastMatches.setAdapter(customAdaptor);
+
+
     }
 
     class CustomAdaptor extends BaseAdapter {
@@ -56,11 +63,13 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             TextView tvGame = view.findViewById(R.id.tvGame);
             TextView tvDayTime = view.findViewById(R.id.tvDayTime);
             TextView tvLocation = view.findViewById(R.id.tvLocation);
+            ImageView ivPicture = view.findViewById(R.id.ivPicture);
 
             tvName.setText(NAMES[i]);
             tvGame.setText(GAMES[i]);
             tvDayTime.setText(DAYTIME[i]);
             tvLocation.setText(LOCATION[i]);
+            ivPicture.setImageResource(IMAGES[i]);
 
             return null;
         }
