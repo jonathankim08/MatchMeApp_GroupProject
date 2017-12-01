@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.jonat.matchmeapp_groupproject.ChatActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/listViewMessages"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/listViewMessages"
+        android:layout_marginTop="14dp"
+        android:text="Submit"
+        tools:layout_editor_absoluteX="290dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/editTextChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonSubmit"
+        android:layout_alignLeft="@+id/listViewMessages"
+        android:layout_alignStart="@+id/listViewMessages"
+        android:ems="10"
+        android:hint="Enter message"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ListView
+        android:id="@+id/listViewMessages"
+        android:layout_width="368dp"
+        android:layout_height="439dp"
+        android:layout_below="@+id/editTextChat"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="72dp" />
+</RelativeLayout>
