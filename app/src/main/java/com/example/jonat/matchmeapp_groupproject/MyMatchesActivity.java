@@ -64,9 +64,10 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
             return null;
         }
+
     }
 
-    
+
     @Override
     public void onClick(View view) {
 
