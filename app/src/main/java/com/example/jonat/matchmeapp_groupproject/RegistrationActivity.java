@@ -13,8 +13,8 @@ import org.w3c.dom.Text;
 public class RegistrationActivity extends Activity implements View.OnClickListener {
 
     //declare objects
-    private TextView textViewEditProfile, textViewName, textViewLocation, textViewTennisLevel, textViewChessLevel;
-    private EditText editTextName,editTextLocation;
+    private TextView textViewEditProfile, textViewName, textViewAge, textViewLocation, textViewTennisLevel, textViewChessLevel;
+    private EditText editTextName,editTextAge, editTextLocation;
     private Spinner spinnerTennisLevel, spinnerChessLevel;
     private Button buttonSubmit;
 
@@ -26,10 +26,12 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         //link objects
         textViewEditProfile = (TextView) findViewById(R.id.textViewEditProfile);
         textViewName = (TextView) findViewById(R.id.textViewName);
+        textViewAge = (TextView) findViewById(R.id.textViewAge);
         textViewLocation = (TextView) findViewById(R.id.textViewLocation);
         textViewTennisLevel = (TextView) findViewById(R.id.textViewTennisLevel);
         textViewChessLevel = (TextView) findViewById(R.id.textViewChessLevel);
         editTextName = (EditText) findViewById(R.id.editTextName);
+        editTextAge = (EditText) findViewById(R.id.editTextAge);
         editTextLocation = (EditText) findViewById(R.id.editTextLocation);
         spinnerTennisLevel = (Spinner) findViewById(R.id.spinnerTennisLevel);
         spinnerChessLevel = (Spinner) findViewById(R.id.spinnerChessLevel);
