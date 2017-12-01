@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
     private String[] NAMES  = {"Mike","Neil","Jyoty","Jonathan","Arjun"};
     private String[] GAMES = {"Tennis","Chess"};
-    private String[] DATEANDTIME = {"Monday, 9-11am","Friday 6-8pm","Saturday 1-3pm"};
+    private String[] DAYTIME = {"Monday, 9-11am","Friday 6-8pm","Saturday 1-3pm"};
     private String[] LOCATION = {"Burns Park Tennis Courts","Union Chess Hall"};
 
     @Override
@@ -27,6 +28,9 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_my_matches);
 
         lvCurrentMatches = findViewById(R.id.lvCurrentMatches);
+
+        CustomAdaptor customAdaptor = new CustomAdaptor();
+        lvCurrentMatches.setAdapter(customAdaptor);
     }
 
     class CustomAdaptor extends BaseAdapter {
@@ -49,6 +53,16 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
+            view = getLayoutInflater().inflate(R.layout.currentmatcheslayout, null);
+            TextView tvName = view.findViewById(R.id.tvName);
+            TextView tvGame = view.findViewById(R.id.tvGame);
+            TextView tvDayTime = view.findViewById(R.id.tvDayTime);
+            TextView tvLocation = view.findViewById(R.id.tvLocation);
+
+            tvName.setText(NAMES[i]);
+            tvGame.setText(GAMES[i]);
+            tvDayTime.setText(DAYTIME[i]);
+            tvLocation.setText(LOCATION[i]);
 
             return null;
         }

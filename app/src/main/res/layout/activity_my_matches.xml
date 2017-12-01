@@ -45,11 +45,12 @@
 
     <EditText
         android:id="@+id/etMyMatches"
-        android:layout_width="351dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Upcoming Matches and History"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/coocolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
@@ -66,5 +67,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="130dp" />
+
+    <EditText
+        android:id="@+id/etPastMatches"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Past Matches"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="379dp" />
 
 </android.support.constraint.ConstraintLayout>
