@@ -24,7 +24,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
     private String[] NAMES  = {"Jyoty","Neil"};
     private String[] GAMES = {"Tennis","Chess"};
     private String[] DAYTIME = {"Friday 6:00-8:00 PM","Saturday 1:00-3:00 PM"};
-    private String[] LOCATION = {"Burns Park Tennis Courts","Union Chess Hall"};
+    private String[] LOCATION = {"Public Courts","Chess Hall"};
     private int[] IMAGES = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
 
     @Override

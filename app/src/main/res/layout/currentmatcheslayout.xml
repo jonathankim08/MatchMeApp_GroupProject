@@ -5,8 +5,6 @@
 
     <TextView
         android:id="@+id/tvName"
-        tools:layout_editor_absoluteX="115dp"
-        tools:layout_editor_absoluteY="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -15,13 +13,11 @@
         android:layout_toEndOf="@+id/ivPicture"
         android:layout_toRightOf="@+id/ivPicture"
         android:text="TextView"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvGame"
-        tools:layout_editor_absoluteX="244dp"
-        tools:layout_editor_absoluteY="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvName"
@@ -30,41 +26,32 @@
         android:layout_alignParentRight="true"
         android:layout_marginEnd="41dp"
         android:layout_marginRight="41dp"
-        android:text="TextView"
-        android:textSize="18sp" />
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/tvDayTime"
-        tools:layout_editor_absoluteX="115dp"
-        tools:layout_editor_absoluteY="62dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/ivPicture"
         android:layout_alignLeft="@+id/tvName"
         android:layout_alignStart="@+id/tvName"
-        android:text="TextView"
-        android:textSize="18sp" />
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/tvLocation"
-        tools:layout_editor_absoluteX="244dp"
-        tools:layout_editor_absoluteY="62dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/ivPicture"
         android:layout_alignLeft="@+id/tvGame"
         android:layout_alignStart="@+id/tvGame"
-        android:text="TextView"
-        android:textSize="18sp" />
+        android:text="TextView" />
 
     <ImageView
         android:id="@+id/ivPicture"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:src="@mipmap/ic_launcher" />
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
