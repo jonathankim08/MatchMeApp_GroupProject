@@ -23,7 +23,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
     private String[] NAMES  = {"Mike","Neil"};
     private String[] GAMES = {"Tennis","Chess"};
-    private String[] DAYTIME = {"Friday 6-8pm","Saturday 1-3pm"};
+    private String[] DAYTIME = {"Friday 6:00-8:00 PM","Saturday 1:00-3:00 PM"};
     private String[] LOCATION = {"Burns Park Tennis Courts","Union Chess Hall"};
 
     @Override
@@ -37,8 +37,6 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         CustomAdaptor customAdaptor = new CustomAdaptor();
         lvCurrentMatches.setAdapter(customAdaptor);
         lvPastMatches.setAdapter(customAdaptor);
-
-
     }
 
     class CustomAdaptor extends BaseAdapter {
@@ -70,11 +68,11 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
             return null;
         }
-
     }
 
 
     @Override
     public void onClick(View view) {
+
     }
 }

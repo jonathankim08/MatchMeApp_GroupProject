@@ -37,7 +37,6 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
         //set up button listener
         buttonSubmit.setOnClickListener(this);
-
     }
 
     @Override
