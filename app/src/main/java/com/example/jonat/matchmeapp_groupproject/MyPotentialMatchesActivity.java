@@ -96,5 +96,4 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
     public void onClick(View view) {
 
     }
-
 }
