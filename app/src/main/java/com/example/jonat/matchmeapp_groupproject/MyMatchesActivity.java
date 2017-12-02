@@ -70,7 +70,6 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         }
     }
 
-
     @Override
     public void onClick(View view) {
 

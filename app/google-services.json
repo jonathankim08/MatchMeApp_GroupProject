@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "242447359711-u23o21pedifghvb50h9smk2ess8nk4ps.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jonat.matchmeapp_groupproject",
+            "certificate_hash": "c5744b6e4127a7c1cbba2b1e3dacc7a55d5ec353"
+          }
+        },
+        {
           "client_id": "242447359711-m9tj63vetfo0mku4uq99i0uskm0i9tnl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
