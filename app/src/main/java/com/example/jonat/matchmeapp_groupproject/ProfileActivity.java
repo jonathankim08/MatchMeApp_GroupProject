@@ -8,13 +8,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class ProfileActivity extends Activity implements View.OnClickListener {
+public class ProfileActivity extends Activity {
 
     //declare objects
-    private TextView textViewEditProfile, textViewLocation, textViewTennisLevel, textViewChessLevel;
-    private EditText editTextLocation;
-    private Spinner spinnerTennisLevel, spinnerChessLevel;
-    private Button buttonSubmit;
+    private TextView textViewName, textViewAge, textViewLocation, textViewTennisLevel, textViewChessLevel;
+    private TextView textViewNameValue, textViewAgeValue, textViewLocationValue, textViewTennisLevelValue, textViewChessLevelValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,21 +20,16 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_profile);
 
         //link objects
-        textViewEditProfile = (TextView) findViewById(R.id.textViewEditProfile);
+        textViewName = (TextView) findViewById(R.id.textViewName);
+        textViewAge = (TextView) findViewById(R.id.textViewAge);
         textViewLocation = (TextView) findViewById(R.id.textViewLocation);
         textViewTennisLevel = (TextView) findViewById(R.id.textViewTennisLevel);
         textViewChessLevel = (TextView) findViewById(R.id.textViewChessLevel);
-        editTextLocation = (EditText) findViewById(R.id.editTextLocation);
-        spinnerTennisLevel = (Spinner) findViewById(R.id.spinnerTennisLevel);
-        spinnerChessLevel = (Spinner) findViewById(R.id.spinnerChessLevel);
-        buttonSubmit = (Button) findViewById(R.id.buttonSubmit);
-
-        //set up button listener
-        buttonSubmit.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
+        textViewNameValue = (TextView) findViewById(R.id.textViewNameValue);
+        textViewAgeValue = (TextView) findViewById(R.id.textViewAgeValue);
+        textViewLocationValue = (TextView) findViewById(R.id.textViewLocationValue);
+        textViewTennisLevelValue = (TextView) findViewById(R.id.textViewTennisLevelValue);
+        textViewChessLevelValue = (TextView) findViewById(R.id.textViewChessLevelValue);
 
     }
 }
