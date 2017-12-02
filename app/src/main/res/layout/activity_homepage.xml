@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jonat.matchmeapp_groupproject.HomepageActivity">
+    tools:context="com.example.jonat.matchmeapp_groupproject.HomepageActivity"
+    tools:layout_editor_absoluteY="73dp">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="33dp"
         android:text="MATCH ME"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:textAlignment="gravity"
@@ -26,76 +26,74 @@
         android:id="@+id/imageView3"
         android:layout_width="71dp"
         android:layout_height="65dp"
-        android:src="@mipmap/ic_launcher_round"
-        tools:layout_editor_absoluteX="232dp"
-        tools:layout_editor_absoluteY="104dp" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="71dp"
-        android:layout_height="65dp"
-        android:src="@mipmap/ic_launcher_round"
-        app:layout_constraintBottom_toTopOf="@+id/radioButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.284"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
-
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="108dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="8dp"
-        android:text="Chess"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
-        app:layout_constraintEnd_toStartOf="@+id/radioButton2"
-        app:layout_constraintHorizontal_bias="0.586"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="104dp"
-        android:layout_height="wrap_content"
-        android:text="Tennis"
-        tools:layout_editor_absoluteX="220dp"
-        tools:layout_editor_absoluteY="169dp" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="373dp"
-        android:layout_height="39dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Select a time slot:"
+        android:src="@drawable/tennis"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton" />
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.369" />
 
     <EditText
-        android:id="@+id/editText2"
-        android:layout_width="381dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/editText"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Select one activity:"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
+        android:text="Select activity-"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="71"
+        android:layout_height="65"
+        android:src="@drawable/chess"
+        app:layout_constraintBottom_toTopOf="@+id/radioButton"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Select time slot-"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="189dp" />
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="104"
+        android:layout_height="29"
+        android:text="Chess"
+        tools:layout_editor_absoluteX="69dp"
+        tools:layout_editor_absoluteY="155dp" />
+
+    <RadioButton
+        android:id="@+id/radioButton2"
+        android:layout_width="145dp"
+        android:layout_height="34dp"
+        android:text="Tennis"
+        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        tools:layout_editor_absoluteX="223dp" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="382dp"
-        android:layout_height="286dp"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="233dp">
 
         <LinearLayout
             android:layout_width="match_parent"
