@@ -16,13 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".HomepageActivity" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="true" />
         <activity
             android:name=".RegistrationActivity"
             android:exported="true" />
         <activity
             android:name=".MyMatchesActivity"
-            android:exported="true"/>
+            android:exported="true" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="true" />
+        <activity android:name=".MyPotentialMatchesActivity"></activity>
     </application>
 
 </manifest>
