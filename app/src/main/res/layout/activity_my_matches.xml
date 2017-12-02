@@ -24,7 +24,7 @@
         android:id="@+id/lvPastMatches"
         android:layout_width="368dp"
         android:layout_height="84dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="88dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +48,7 @@
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lvCurrentMatches"
-        app:layout_constraintVertical_bias="0.066" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tvCurrentMatches"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:text="Current Matches"
         android:textSize="18sp"
         android:textStyle="bold"
