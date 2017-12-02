@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomepageActivity" />
+        <activity
+            android:name=".HomepageActivity"
+            android:exported="true" />
         <activity
             android:name=".ProfileActivity"
             android:exported="true" />
@@ -29,7 +31,9 @@
         <activity
             android:name=".ChatActivity"
             android:exported="true" />
-        <activity android:name=".MyPotentialMatchesActivity"></activity>
+        <activity
+            android:name=".MyPotentialMatchesActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
