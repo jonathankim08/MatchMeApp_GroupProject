@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.w3c.dom.Text;
 
 public class RegistrationActivity extends Activity implements View.OnClickListener {
@@ -47,8 +50,22 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
+        //Initializing Firebase database
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final DatabaseReference cardRef = db.getReference("Profiles");
 
+        if (view == buttonSubmit) {
+            String profileName = editTextName.getText().toString();
+            String profileAge = editTextAge.getText().toString();
+            String profileLocation = editTextLocation.getText().toString();
+            String profileTennisLevel = spinnerTennisLevel.getSelectedItem().toString();
+            String profileChessLevel = spinnerChessLevel.getSelectedItem().toString();
+
+
+            ProfileClass myProfile = new ProfileClass(profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel);
+            cardRef.push().setValue(myProfile);
+        }
     }
 
     @Override
