@@ -1,5 +1,6 @@
 package com.example.jonat.matchmeapp_groupproject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.media.Image;
 import android.os.Bundle;
@@ -18,23 +19,24 @@ import java.util.List;
 
 public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
-    private EditText etTitle, etMyatches, etPastMatches;
+    private TextView tvTitle, tvCurrentMatches, tvPastMatches;
     private ListView lvCurrentMatches, lvPastMatches;
 
-    private String[] NAMES  = {"Jyoty","Neil"};
+    private String[] NAMES  = {"Jyoty","Arjun"};
     private String[] GAMES = {"Tennis","Chess"};
     private String[] DAYTIME = {"Friday 6:00-8:00 PM","Saturday 1:00-3:00 PM"};
-    private String[] LOCATION = {"Burns Park Tennis Courts","Union Chess Hall"};
+    private String[] LOCATION = {"Public Courts","Chess Hall"};
     private int[] IMAGES = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_matches);
 
-        etTitle = findViewById(R.id.etTitle);
-        etMyatches = findViewById(R.id.etMyMatches);
-        etPastMatches = findViewById(R.id.etPastMatches);
+        tvTitle = findViewById(R.id.tvTitle);
+        tvCurrentMatches = findViewById(R.id.tvCurrentMatches);
+        tvPastMatches = findViewById(R.id.tvPastMatches);
         lvCurrentMatches = findViewById(R.id.lvCurrentMatches);
         lvPastMatches = findViewById(R.id.lvPastMatches);
 
@@ -42,12 +44,21 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         lvCurrentMatches.setAdapter(customAdaptor);
         lvPastMatches.setAdapter(customAdaptor);
 
+
         lvCurrentMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Toast.makeText(MyMatchesActivity.this, "You Clicked: " + NAMES[i], Toast.LENGTH_SHORT).show();
             }
         });
+
+        lvPastMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MyMatchesActivity.this, "You Clicked: " + NAMES[i], Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     class CustomAdaptor extends BaseAdapter {
