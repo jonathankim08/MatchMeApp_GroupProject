@@ -7,11 +7,9 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@+id/ivPicture"
-        android:layout_toRightOf="@+id/ivPicture"
         android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -20,31 +18,33 @@
         android:id="@+id/tvGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvName"
-        android:layout_alignBottom="@+id/tvName"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="41dp"
-        android:layout_marginRight="41dp"
-        android:text="TextView" />
+        android:layout_below="@+id/tvName"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_toEndOf="@+id/tvName"
+        android:layout_toRightOf="@+id/tvName"
+        android:text="TextView"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvDayTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivPicture"
-        android:layout_alignLeft="@+id/tvName"
-        android:layout_alignStart="@+id/tvName"
-        android:text="TextView" />
+        android:layout_alignLeft="@+id/tvLocation"
+        android:layout_alignStart="@+id/tvLocation"
+        android:layout_below="@+id/tvLocation"
+        android:text="TextView"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivPicture"
         android:layout_alignLeft="@+id/tvGame"
         android:layout_alignStart="@+id/tvGame"
-        android:text="TextView" />
+        android:layout_below="@+id/tvGame"
+        android:text="TextView"
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/ivPicture"
@@ -52,6 +52,18 @@
         android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tvName"
         android:src="@mipmap/ic_launcher" />
+
+    <Button
+        android:id="@+id/buttonSendChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvLocation"
+        android:layout_alignBottom="@+id/tvLocation"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:text="Send Chat" />
 </RelativeLayout>
