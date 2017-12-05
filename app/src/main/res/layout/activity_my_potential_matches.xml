@@ -30,12 +30,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewFilterPrompt" />
 
-    <EditText
-        android:id="@+id/editTextAppTitle"
+    <TextView
+        android:id="@+id/textViewAppTitle"
         android:layout_width="wrap_content"
-        android:layout_height="63dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="2dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="MatchMe"
@@ -61,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAppTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAppTitle" />
 
     <TextView
         android:id="@+id/textViewFilterPrompt"

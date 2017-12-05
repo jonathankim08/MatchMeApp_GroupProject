@@ -18,8 +18,7 @@ import org.w3c.dom.Text;
 
 public class MyPotentialMatchesActivity extends Activity implements View.OnClickListener {
 
-    private EditText AppTitle;
-    private TextView PageTitle, FilterPrompt;
+    private TextView AppTitle, PageTitle, FilterPrompt;
     private Spinner Filter;
 
     private ListView MyPotentialMatches;
@@ -35,7 +34,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_potential_matches);
 
-        AppTitle = (EditText) findViewById(R.id.editTextAppTitle);
+        AppTitle = (TextView) findViewById(R.id.textViewAppTitle);
         PageTitle = (TextView) findViewById(R.id.textViewPageTitle);
         FilterPrompt = (TextView) findViewById(R.id.textViewFilterPrompt);
         Filter = (Spinner) findViewById(R.id.spinnerFilter);
