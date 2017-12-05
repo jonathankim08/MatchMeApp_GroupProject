@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeMenu"
+        android:title="Home" />
+    <item
+        android:id="@+id/myPotentialMatchesMenu"
+        android:title="Potential Matches" />
+    <item
+        android:id="@+id/myMatchesMenu"
+        android:title="Confirmed Matches" />
+    <item
+        android:id="@+id/chatMenu"
+        android:title="ChatBox" />
+    <item
+        android:id="@+id/updateProfileMenu"
+        android:title="Update Profile" />
+    <item
+        android:id="@+id/logoutMenu"
+        android:title="Logout" />
+</menu>
