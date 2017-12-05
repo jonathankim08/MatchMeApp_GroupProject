@@ -22,6 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends Activity {
 
+    //get email address
+    Intent intent = getIntent();
+    String profileEmailAddress = intent.getStringExtra("Username");
+
     //declare objects
     private TextView textViewName, textViewAge, textViewLocation, textViewTennisLevel, textViewChessLevel;
     private TextView textViewNameValue, textViewAgeValue, textViewLocationValue, textViewTennisLevelValue, textViewChessLevelValue;
@@ -45,7 +49,53 @@ public class ProfileActivity extends Activity {
 
         //Initializing Firebase database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        final DatabaseReference cardRef = db.getReference("Profiles");
+        final DatabaseReference profileRef = db.getReference("Profiles");
+
+        profileRef.orderByChild("profileEmailAddress").equalTo(profileEmailAddress).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() ==  null) {
+                    Toast.makeText(ProfileActivity.this, "Email Address Not Found", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    profileRef.orderByChild("profileEmailAddress").equalTo(profileEmailAddress).addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            ProfileClass findProfile = new ProfileClass();
+                            findProfile = dataSnapshot.getValue(ProfileClass.class);
+                            textViewName.setText(findProfile.profileName);
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     @Override
@@ -61,21 +111,27 @@ public class ProfileActivity extends Activity {
 
         if (item.getItemId() == R.id.homeMenu){
             Intent intentHome = new Intent(this,HomepageActivity.class);
+            intentHome.putExtra("Username", profileEmailAddress);
             this.startActivity(intentHome);
         }else if(item.getItemId() == R.id.myPotentialMatchesMenu){
             Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
+            intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
             this.startActivity(intentMyPotentialMatches);
         }else if(item.getItemId() == R.id.myMatchesMenu){
             Intent intentMyMatches = new Intent(this,MyMatchesActivity.class);
+            intentMyMatches.putExtra("Username", profileEmailAddress);
             this.startActivity(intentMyMatches);
         }else if (item.getItemId() == R.id.chatMenu){
             Intent intentChat = new Intent(this,ChatActivity.class);
+            intentChat.putExtra("Username", profileEmailAddress);
             this.startActivity(intentChat);
         }else if (item.getItemId() == R.id.updateProfileMenu){
             Intent intentUpdateProfile = new Intent(this,RegistrationActivity.class);
+            intentUpdateProfile.putExtra("Username", profileEmailAddress);
             this.startActivity(intentUpdateProfile);
         }else if (item.getItemId() == R.id.logoutMenu){
             Intent intentLogout = new Intent(this,MainActivity.class);
+            intentLogout.putExtra("Username", profileEmailAddress);
             this.startActivity(intentLogout);
         }
 

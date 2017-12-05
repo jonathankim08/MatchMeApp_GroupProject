@@ -129,6 +129,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private void sendToRegistration() {
         Intent HomeIntent = new Intent(this, RegistrationActivity.class);
+        HomeIntent.putExtra("Username", usernameEditText.getText().toString());
         this.startActivity(HomeIntent);
     }
 
@@ -162,8 +163,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private void sendToHome() {
         Intent HomeIntent = new Intent(this, HomepageActivity.class);
+        HomeIntent.putExtra("Username", usernameEditText.getText().toString());
         this.startActivity(HomeIntent);
     }
-
-
 }
