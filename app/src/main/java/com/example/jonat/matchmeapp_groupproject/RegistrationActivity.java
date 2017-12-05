@@ -48,7 +48,6 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         buttonSubmit.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View view) {
         //Initializing Firebase database
@@ -101,5 +100,4 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
         return super.onOptionsItemSelected(item);
     }
-
 }
