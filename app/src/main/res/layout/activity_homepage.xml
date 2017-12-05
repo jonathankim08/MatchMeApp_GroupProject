@@ -46,24 +46,25 @@
 
     <RadioButton
         android:id="@+id/radioButton"
-        android:layout_width="108dp"
+        android:layout_width="110dp"
         android:layout_height="25dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="Chess"
         app:layout_constraintEnd_toStartOf="@+id/radioButton2"
-        app:layout_constraintHorizontal_bias="0.654"
+        app:layout_constraintHorizontal_bias="0.673"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <RadioButton
         android:id="@+id/radioButton2"
-        android:layout_width="104dp"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="56dp"
         android:layout_marginTop="8dp"
         android:text="Tennis"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        tools:layout_editor_absoluteX="223dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
