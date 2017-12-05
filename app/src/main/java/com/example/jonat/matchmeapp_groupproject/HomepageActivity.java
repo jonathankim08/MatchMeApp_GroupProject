@@ -14,15 +14,17 @@ import android.widget.ImageView;
 
 public class HomepageActivity extends Activity {
 
-    //get email address
-    Intent intent = getIntent();
-    String profileEmailAddress = intent.getStringExtra("Username");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        //get email address
+        Intent intent = getIntent();
+        final String profileEmailAddress = intent.getStringExtra("Username");
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -34,6 +36,10 @@ public class HomepageActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        //get email address
+        Intent intent = getIntent();
+        final String profileEmailAddress = intent.getStringExtra("Username");
 
         if (item.getItemId() == R.id.homeMenu){
             Intent intentHome = new Intent(this,HomepageActivity.class);
@@ -51,10 +57,10 @@ public class HomepageActivity extends Activity {
             Intent intentChat = new Intent(this,ChatActivity.class);
             intentChat.putExtra("Username", profileEmailAddress);
             this.startActivity(intentChat);
-        }else if (item.getItemId() == R.id.updateProfileMenu){
-            Intent intentUpdateProfile = new Intent(this,RegistrationActivity.class);
-            intentUpdateProfile.putExtra("Username", profileEmailAddress);
-            this.startActivity(intentUpdateProfile);
+        }else if (item.getItemId() == R.id.profileMenu){
+            Intent intentProfile = new Intent(this,ProfileActivity.class);
+            intentProfile.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentProfile);
         }else if (item.getItemId() == R.id.logoutMenu){
             Intent intentLogout = new Intent(this,MainActivity.class);
             intentLogout.putExtra("Username", profileEmailAddress);

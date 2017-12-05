@@ -19,10 +19,6 @@ import org.w3c.dom.Text;
 
 public class RegistrationActivity extends Activity implements View.OnClickListener {
 
-    //get email address
-    Intent intent = getIntent();
-    String profileEmailAddress = intent.getStringExtra("Username");
-
     //declare objects
     private TextView textViewEditProfile, textViewName, textViewAge, textViewLocation, textViewTennisLevel, textViewChessLevel;
     private EditText editTextName,editTextAge, editTextLocation;
@@ -59,6 +55,9 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         final DatabaseReference profileRef = db.getReference("Profiles");
 
         if (view == buttonSubmit) {
+            //get email address
+            Intent intent = getIntent();
+            String profileEmailAddress = intent.getStringExtra("Username");
             String profileName = editTextName.getText().toString();
             String profileAge = editTextAge.getText().toString();
             String profileLocation = editTextLocation.getText().toString();

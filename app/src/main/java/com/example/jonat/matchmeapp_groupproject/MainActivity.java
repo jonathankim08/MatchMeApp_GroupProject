@@ -128,9 +128,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     private void sendToRegistration() {
-        Intent HomeIntent = new Intent(this, RegistrationActivity.class);
-        HomeIntent.putExtra("Username", usernameEditText.getText().toString());
-        this.startActivity(HomeIntent);
+        Intent RegistrationIntent = new Intent(this, RegistrationActivity.class);
+        RegistrationIntent.putExtra("Username", usernameEditText.getText().toString());
+        this.startActivity(RegistrationIntent);
     }
 
     private void signIn(String email, String password) {

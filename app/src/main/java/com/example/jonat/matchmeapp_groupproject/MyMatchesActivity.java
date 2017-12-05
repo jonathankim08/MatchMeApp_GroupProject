@@ -23,10 +23,6 @@ import java.util.List;
 
 public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
-    //get email address
-    Intent intent = getIntent();
-    String profileEmailAddress = intent.getStringExtra("Username");
-
     private TextView tvTitle, tvCurrentMatches, tvPastMatches;
     private ListView lvCurrentMatches, lvPastMatches;
 
@@ -41,6 +37,10 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_matches);
+
+        //get email address
+        Intent intent = getIntent();
+        final String profileEmailAddress = intent.getStringExtra("Username");
 
         tvTitle = findViewById(R.id.tvTitle);
         tvCurrentMatches = findViewById(R.id.tvCurrentMatches);
@@ -118,6 +118,10 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        //get email address
+        Intent intent = getIntent();
+        final String profileEmailAddress = intent.getStringExtra("Username");
+
         if (item.getItemId() == R.id.homeMenu){
             Intent intentHome = new Intent(this,HomepageActivity.class);
             intentHome.putExtra("Username", profileEmailAddress);
@@ -134,10 +138,10 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             Intent intentChat = new Intent(this,ChatActivity.class);
             intentChat.putExtra("Username", profileEmailAddress);
             this.startActivity(intentChat);
-        }else if (item.getItemId() == R.id.updateProfileMenu){
-            Intent intentUpdateProfile = new Intent(this,RegistrationActivity.class);
-            intentUpdateProfile.putExtra("Username", profileEmailAddress);
-            this.startActivity(intentUpdateProfile);
+        }else if (item.getItemId() == R.id.profileMenu){
+            Intent intentProfile = new Intent(this,ProfileActivity.class);
+            intentProfile.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentProfile);
         }else if (item.getItemId() == R.id.logoutMenu){
             Intent intentLogout = new Intent(this,MainActivity.class);
             intentLogout.putExtra("Username", profileEmailAddress);

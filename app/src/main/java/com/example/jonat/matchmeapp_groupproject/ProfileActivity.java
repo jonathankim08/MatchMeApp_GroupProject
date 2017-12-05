@@ -22,18 +22,19 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends Activity {
 
-    //get email address
-    Intent intent = getIntent();
-    String profileEmailAddress = intent.getStringExtra("Username");
-
     //declare objects
     private TextView textViewName, textViewAge, textViewLocation, textViewTennisLevel, textViewChessLevel;
     private TextView textViewNameValue, textViewAgeValue, textViewLocationValue, textViewTennisLevelValue, textViewChessLevelValue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        //get email address
+        Intent intent = getIntent();
+        final String profileEmailAddress = intent.getStringExtra("Username");
 
         //link objects
         textViewName = (TextView) findViewById(R.id.textViewName);
@@ -63,7 +64,7 @@ public class ProfileActivity extends Activity {
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             ProfileClass findProfile = new ProfileClass();
                             findProfile = dataSnapshot.getValue(ProfileClass.class);
-                            textViewName.setText(findProfile.profileName);
+                            textViewNameValue.setText(findProfile.profileName);
                         }
 
                         @Override
@@ -94,8 +95,6 @@ public class ProfileActivity extends Activity {
 
             }
         });
-
-
     }
 
     @Override
@@ -108,6 +107,10 @@ public class ProfileActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        //get email address
+        Intent intent = getIntent();
+        final String profileEmailAddress = intent.getStringExtra("Username");
 
         if (item.getItemId() == R.id.homeMenu){
             Intent intentHome = new Intent(this,HomepageActivity.class);
@@ -125,10 +128,10 @@ public class ProfileActivity extends Activity {
             Intent intentChat = new Intent(this,ChatActivity.class);
             intentChat.putExtra("Username", profileEmailAddress);
             this.startActivity(intentChat);
-        }else if (item.getItemId() == R.id.updateProfileMenu){
-            Intent intentUpdateProfile = new Intent(this,RegistrationActivity.class);
-            intentUpdateProfile.putExtra("Username", profileEmailAddress);
-            this.startActivity(intentUpdateProfile);
+        }else if (item.getItemId() == R.id.profileMenu){
+            Intent intentProfile = new Intent(this,ProfileActivity.class);
+            intentProfile.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentProfile);
         }else if (item.getItemId() == R.id.logoutMenu){
             Intent intentLogout = new Intent(this,MainActivity.class);
             intentLogout.putExtra("Username", profileEmailAddress);
