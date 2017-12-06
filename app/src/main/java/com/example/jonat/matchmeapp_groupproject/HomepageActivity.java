@@ -35,10 +35,13 @@ public class HomepageActivity extends Activity {
     }
 
     @Override
+
     public boolean onOptionsItemSelected(MenuItem item) {
 
         //get email address
+
         Intent intent = getIntent();
+
         final String profileEmailAddress = intent.getStringExtra("Username");
 
         if (item.getItemId() == R.id.homeMenu){
@@ -67,6 +70,10 @@ public class HomepageActivity extends Activity {
             this.startActivity(intentLogout);
         }
 
+
+
         return super.onOptionsItemSelected(item);
     }
+
+
 }

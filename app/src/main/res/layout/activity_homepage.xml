@@ -28,7 +28,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/chess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -38,9 +38,10 @@
         android:id="@+id/imageView4"
         android:layout_width="71dp"
         android:layout_height="65dp"
+        android:layout_marginLeft="84dp"
         android:layout_marginStart="84dp"
         android:layout_marginTop="8dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/tennis"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -49,6 +50,7 @@
         android:layout_width="110dp"
         android:layout_height="25dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="Chess"
         app:layout_constraintEnd_toStartOf="@+id/radioButton2"
@@ -61,6 +63,7 @@
         android:layout_width="110dp"
         android:layout_height="25dp"
         android:layout_marginEnd="56dp"
+        android:layout_marginRight="56dp"
         android:layout_marginTop="8dp"
         android:text="Tennis"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,16 +84,18 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/spinner3"
+                android:id="@+id/spinnerDate"
                 android:layout_width="372dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:entries="@array/date_array" />
 
             <Spinner
-                android:id="@+id/spinner4"
+                android:id="@+id/spinnerMonth"
                 android:layout_width="match_parent"
                 android:layout_height="62dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:entries="@array/month_array" />
         </LinearLayout>
 
         <ListView
@@ -121,7 +126,10 @@
         android:text="Select One Time Slot:"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton"
-        tools:layout_editor_absoluteX="4dp" />
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton" />
 
 </android.support.constraint.ConstraintLayout>
