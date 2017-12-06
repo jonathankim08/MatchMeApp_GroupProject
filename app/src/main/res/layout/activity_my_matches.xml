@@ -9,7 +9,7 @@
 
 
     <ListView
-        android:id="@+id/lvCurrentMatches"
+        android:id="@+id/lvPendingMatches"
         android:layout_width="368dp"
         android:layout_height="191dp"
         android:layout_marginEnd="8dp"
@@ -18,10 +18,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCurrentMatches" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPendingMatches" />
 
     <ListView
-        android:id="@+id/lvPastMatches"
+        android:id="@+id/lvConfirmedMatches"
         android:layout_width="368dp"
         android:layout_height="84dp"
         android:layout_marginBottom="88dp"
@@ -33,31 +33,31 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tvPastMatches"
+        android:id="@+id/tvConfirmedMatches"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Past Matches"
+        android:text="Confirmed Matches"
         android:textAllCaps="true"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/lvPastMatches"
+        app:layout_constraintBottom_toTopOf="@+id/lvConfirmedMatches"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvCurrentMatches"
+        app:layout_constraintTop_toBottomOf="@+id/lvPendingMatches"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/tvCurrentMatches"
+        android:id="@+id/tvPendingMatches"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        android:text="Current Matches"
+        android:text="Pending Matches"
         android:textAllCaps="true"
         android:textSize="18sp"
         android:textStyle="bold"

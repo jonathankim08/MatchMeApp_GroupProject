@@ -3,7 +3,6 @@ package com.example.jonat.matchmeapp_groupproject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,20 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
-    private TextView tvTitle, tvCurrentMatches, tvPastMatches;
-    private ListView lvCurrentMatches, lvPastMatches;
+    private TextView tvTitle, tvPendingMatches, tvConfirmedMatches;
+    private ListView lvPendingMatches, lvConfirmedMatches;
 
     private String[] NAMES  = {"Jyoty","Arjun"};
     private String[] GAMES = {"Tennis","Chess"};
@@ -43,24 +38,24 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         final String profileEmailAddress = intent.getStringExtra("Username");
 
         tvTitle = findViewById(R.id.tvTitle);
-        tvCurrentMatches = findViewById(R.id.tvCurrentMatches);
-        tvPastMatches = findViewById(R.id.tvPastMatches);
-        lvCurrentMatches = findViewById(R.id.lvCurrentMatches);
-        lvPastMatches = findViewById(R.id.lvPastMatches);
+        tvPendingMatches = findViewById(R.id.tvPendingMatches);
+        tvConfirmedMatches = findViewById(R.id.tvConfirmedMatches);
+        lvPendingMatches = findViewById(R.id.lvPendingMatches);
+        lvConfirmedMatches = findViewById(R.id.lvConfirmedMatches);
 
         CustomAdaptor customAdaptor = new CustomAdaptor();
-        lvCurrentMatches.setAdapter(customAdaptor);
-        lvPastMatches.setAdapter(customAdaptor);
+        lvPendingMatches.setAdapter(customAdaptor);
+        lvConfirmedMatches.setAdapter(customAdaptor);
 
 
-        lvCurrentMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvPendingMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(MyMatchesActivity.this, "You Clicked: " + NAMES[i], Toast.LENGTH_SHORT).show();
             }
         });
 
-        lvPastMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvConfirmedMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(MyMatchesActivity.this, "You Clicked: " + NAMES[i], Toast.LENGTH_SHORT).show();
