@@ -20,12 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileActivity extends Activity {
+public class ProfileActivity extends Activity implements View.OnClickListener {
 
     //declare objects
     private TextView textViewName, textViewAge, textViewLocation, textViewTennisLevel, textViewChessLevel;
     private TextView textViewNameValue, textViewAgeValue, textViewLocationValue, textViewTennisLevelValue, textViewChessLevelValue;
-
+    private Button EditProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,9 @@ public class ProfileActivity extends Activity {
         textViewLocationValue = (TextView) findViewById(R.id.textViewLocationValue);
         textViewTennisLevelValue = (TextView) findViewById(R.id.textViewTennisLevelValue);
         textViewChessLevelValue = (TextView) findViewById(R.id.textViewChessLevelValue);
+        EditProfile = (Button) findViewById(R.id.btnEditProfile);
+
+        EditProfile.setOnClickListener(this);
 
         //Initializing Firebase database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -65,6 +68,10 @@ public class ProfileActivity extends Activity {
                             ProfileClass findProfile = new ProfileClass();
                             findProfile = dataSnapshot.getValue(ProfileClass.class);
                             textViewNameValue.setText(findProfile.profileName);
+                            textViewAgeValue.setText(findProfile.profileAge);
+                            textViewLocationValue.setText(findProfile.profileLocation);
+                            textViewTennisLevelValue.setText(findProfile.profileTennisLevel);
+                            textViewChessLevelValue.setText(findProfile.profileChessLevel);
                         }
 
                         @Override
@@ -141,4 +148,17 @@ public class ProfileActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View view) {
+
+        //get email address
+        Intent intent = getIntent();
+        final String profileEmailAddress = intent.getStringExtra("Username");
+
+        if (view == EditProfile) {
+            Intent intentRegistration = new Intent(this, MainActivity.class);
+            intentRegistration.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentRegistration);
+        }
+    }
 }
