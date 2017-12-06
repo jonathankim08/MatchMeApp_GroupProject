@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomepageActivity" />
+        <activity 
+            android:name=".HomepageActivity"
+            android:exported="true" />
         <activity
             android:name=".ProfileActivity"
             android:exported="true" />
