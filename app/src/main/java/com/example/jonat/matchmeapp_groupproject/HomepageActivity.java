@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,13 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 
 public class HomepageActivity extends Activity {
+
+    private Spinner dateSpinner,monthSpinner;
+    private ListView slotListView;
+    private RadioButton chessRadioButton,tennisRadioButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+        chessRadioButton = (RadioButton) findViewById(R.id.radioButtonChess);
+        tennisRadioButton = (RadioButton) findViewById(R.id.radioButtonTennis);
 
         //get email address
         Intent intent = getIntent();

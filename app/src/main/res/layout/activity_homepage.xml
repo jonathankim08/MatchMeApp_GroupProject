@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jonat.matchmeapp_groupproject.HomepageActivity">
+    tools:context="com.example.jonat.matchmeapp_groupproject.HomepageActivity"
+    tools:layout_editor_absoluteY="73dp">
 
     <TextView
         android:id="@+id/textViewAppTitle"
         android:layout_width="wrap_content"
         android:layout_height="49dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="MatchMe"
@@ -18,14 +18,14 @@
         android:textColor="@color/colorPrimary"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textViewPageTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:id="@+id/textViewSelectActivity"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
         android:text="Select One Activity:"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -38,57 +38,66 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="71dp"
-        android:layout_height="65dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="75dp"
+        android:layout_height="68dp"
         android:src="@drawable/chess"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        tools:layout_editor_absoluteY="92dp" />
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectActivity" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="71dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="80dp"
+        android:layout_width="75dp"
+        android:layout_height="68dp"
         android:src="@drawable/tennis"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="92dp" />
-
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="110dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Chess"
-        app:layout_constraintEnd_toStartOf="@+id/radioButton2"
-        app:layout_constraintHorizontal_bias="0.673"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="110dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
-        android:layout_marginTop="8dp"
-        android:text="Tennis"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSelectSlot"
+        app:layout_constraintEnd_toStartOf="@+id/textViewSelectSlot"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewSelectSlot"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="384dp"
+        android:layout_height="129dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSelectSlot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectActivity">
+
+        <RadioButton
+            android:id="@+id/radioButtonChess"
+            android:layout_width="110dp"
+            android:layout_height="4dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
+            android:text="Chess"
+            tools:layout_editor_absoluteX="55dp"
+            tools:layout_editor_absoluteY="166dp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonTennis"
+            android:layout_width="109dp"
+            android:layout_height="8dp"
+            android:layout_weight="1"
+            android:text="Tennis"
+            tools:layout_editor_absoluteX="236dp"
+            tools:layout_editor_absoluteY="161dp" />
+    </RadioGroup>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="382dp"
-        android:layout_height="286dp"
+        android:layout_height="278dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectSlot">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,10 +126,9 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewSelectSlot"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="20dp"
         android:text="Select One Time Slot:"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -128,6 +136,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
 </android.support.constraint.ConstraintLayout>
