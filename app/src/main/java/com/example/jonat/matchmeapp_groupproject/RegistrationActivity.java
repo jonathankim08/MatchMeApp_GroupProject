@@ -37,8 +37,14 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        Intent intent = getIntent();
+        String Name = intent.getStringExtra("Name");
+        String Age = intent.getStringExtra("Age");
+        String Location = intent.getStringExtra("Location");
+        String TennisLevel = intent.getStringExtra("TennisLevel");
+        String ChessLevel = intent.getStringExtra("ChessLevel");
+
         //link objects
-        //textViewEditProfile = (TextView) findViewById(R.id.textViewEditProfile);
         textViewName = (TextView) findViewById(R.id.textViewName);
         textViewAge = (TextView) findViewById(R.id.textViewAge);
         textViewLocation = (TextView) findViewById(R.id.textViewLocation);
@@ -53,6 +59,10 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
         //set up button listener
         buttonSubmit.setOnClickListener(this);
+
+        editTextName.setText(Name);
+        editTextAge.setText(Age);
+        editTextLocation.setText(Location);
     }
 
 

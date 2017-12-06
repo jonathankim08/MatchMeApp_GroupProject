@@ -27,6 +27,8 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
     private TextView textViewNameValue, textViewAgeValue, textViewLocationValue, textViewTennisLevelValue, textViewChessLevelValue;
     private Button EditProfile;
 
+    String profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +74,11 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
                             textViewLocationValue.setText(findProfile.profileLocation);
                             textViewTennisLevelValue.setText(findProfile.profileTennisLevel);
                             textViewChessLevelValue.setText(findProfile.profileChessLevel);
+                            profileName = findProfile.profileName;
+                            profileAge = findProfile.profileAge;
+                            profileLocation = findProfile.profileLocation;
+                            profileTennisLevel = findProfile.profileTennisLevel;
+                            profileChessLevel = findProfile.profileChessLevel;
                         }
 
                         @Override
@@ -156,8 +163,13 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
         final String profileEmailAddress = intent.getStringExtra("Username");
 
         if (view == EditProfile) {
-            Intent intentRegistration = new Intent(this, MainActivity.class);
+            Intent intentRegistration = new Intent(this, RegistrationActivity.class);
             intentRegistration.putExtra("Username", profileEmailAddress);
+            intentRegistration.putExtra("Name", profileName);
+            intentRegistration.putExtra("Age", profileAge);
+            intentRegistration.putExtra("Location", profileLocation);
+            intentRegistration.putExtra("TennisLevel", profileTennisLevel);
+            intentRegistration.putExtra("ChessLevel", profileChessLevel);
             this.startActivity(intentRegistration);
         }
     }
