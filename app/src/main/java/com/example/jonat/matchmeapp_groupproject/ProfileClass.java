@@ -8,12 +8,13 @@ import android.media.Image;
 
 public class ProfileClass {
 
-    public String profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel;
+    public String profileEmailAddress, profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel;
 
     public ProfileClass() {
     }
 
-    public ProfileClass(String profileName, String profileAge, String profileLocation, String profileTennisLevel, String profileChessLevel) {
+    public ProfileClass(String emailAddress, String profileName, String profileAge, String profileLocation, String profileTennisLevel, String profileChessLevel) {
+        this.profileEmailAddress = emailAddress;
         this.profileName = profileName;
         this.profileAge = profileAge;
         this.profileLocation = profileLocation;

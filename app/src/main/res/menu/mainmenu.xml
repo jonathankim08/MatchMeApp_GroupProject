@@ -14,8 +14,8 @@
         android:id="@+id/chatMenu"
         android:title="ChatBox" />
     <item
-        android:id="@+id/updateProfileMenu"
-        android:title="Update Profile" />
+        android:id="@+id/profileMenu"
+        android:title="Profile" />
     <item
         android:id="@+id/logoutMenu"
         android:title="Logout" />

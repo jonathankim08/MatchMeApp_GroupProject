@@ -128,8 +128,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     private void sendToRegistration() {
-        Intent HomeIntent = new Intent(this, RegistrationActivity.class);
-        this.startActivity(HomeIntent);
+        Intent RegistrationIntent = new Intent(this, RegistrationActivity.class);
+        RegistrationIntent.putExtra("Username", usernameEditText.getText().toString());
+        this.startActivity(RegistrationIntent);
     }
 
     private void signIn(String email, String password) {
@@ -162,8 +163,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private void sendToHome() {
         Intent HomeIntent = new Intent(this, HomepageActivity.class);
+        HomeIntent.putExtra("Username", usernameEditText.getText().toString());
         this.startActivity(HomeIntent);
     }
-
-
 }
