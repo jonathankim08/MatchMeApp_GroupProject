@@ -1,7 +1,11 @@
 package com.example.jonat.matchmeapp_groupproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,8 +22,7 @@ import org.w3c.dom.Text;
 
 public class MyPotentialMatchesActivity extends Activity implements View.OnClickListener {
 
-    private EditText AppTitle;
-    private TextView PageTitle, FilterPrompt;
+    private TextView AppTitle, PageTitle, FilterPrompt;
     private Spinner Filter;
 
     private ListView MyPotentialMatches;
@@ -35,7 +38,11 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_potential_matches);
 
-        AppTitle = (EditText) findViewById(R.id.editTextAppTitle);
+        //get email address
+        Intent intent = getIntent();
+        final String profileEmailAddress = intent.getStringExtra("Username");
+
+        AppTitle = (TextView) findViewById(R.id.textViewAppTitle);
         PageTitle = (TextView) findViewById(R.id.textViewPageTitle);
         FilterPrompt = (TextView) findViewById(R.id.textViewFilterPrompt);
         Filter = (Spinner) findViewById(R.id.spinnerFilter);
@@ -95,5 +102,49 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mainMenuInflater = getMenuInflater();
+        mainMenuInflater.inflate(R.menu.mainmenu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //get email address
+        Intent intent = getIntent();
+        final String profileEmailAddress = intent.getStringExtra("Username");
+
+        if (item.getItemId() == R.id.homeMenu){
+            Intent intentHome = new Intent(this,HomepageActivity.class);
+            intentHome.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentHome);
+        }else if(item.getItemId() == R.id.myPotentialMatchesMenu){
+            Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
+            intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentMyPotentialMatches);
+        }else if(item.getItemId() == R.id.myMatchesMenu){
+            Intent intentMyMatches = new Intent(this,MyMatchesActivity.class);
+            intentMyMatches.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentMyMatches);
+        }else if (item.getItemId() == R.id.chatMenu){
+            Intent intentChat = new Intent(this,ChatActivity.class);
+            intentChat.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentChat);
+        }else if (item.getItemId() == R.id.profileMenu){
+            Intent intentProfile = new Intent(this,ProfileActivity.class);
+            intentProfile.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentProfile);
+        }else if (item.getItemId() == R.id.logoutMenu){
+            Intent intentLogout = new Intent(this,MainActivity.class);
+            intentLogout.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentLogout);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -95,6 +98,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     }
 
+
     private void createAccount(String email, String password) {
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -124,8 +128,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     private void sendToRegistration() {
-        Intent HomeIntent = new Intent(this, RegistrationActivity.class);
-        this.startActivity(HomeIntent);
+        Intent RegistrationIntent = new Intent(this, RegistrationActivity.class);
+        RegistrationIntent.putExtra("Username", usernameEditText.getText().toString());
+        this.startActivity(RegistrationIntent);
     }
 
     private void signIn(String email, String password) {
@@ -158,8 +163,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private void sendToHome() {
         Intent HomeIntent = new Intent(this, HomepageActivity.class);
+        HomeIntent.putExtra("Username", usernameEditText.getText().toString());
         this.startActivity(HomeIntent);
     }
-
-
 }
