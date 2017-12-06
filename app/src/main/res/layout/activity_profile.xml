@@ -18,6 +18,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textViewLocationValue"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAge" />
 
@@ -101,7 +102,7 @@
 
     <TextView
         android:id="@+id/textViewAgeValue"
-        android:layout_width="match_constrain"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="43dp"
         android:layout_marginTop="48dp"
@@ -143,5 +144,25 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Profile Information:"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="64dp" />
+
+    <Button
+        android:id="@+id/btnEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="464dp" />
 
 </android.support.constraint.ConstraintLayout>
