@@ -2,6 +2,8 @@ package com.example.jonat.matchmeapp_groupproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,11 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class RegistrationActivity extends Activity implements View.OnClickListener {
 
@@ -48,6 +55,8 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         buttonSubmit.setOnClickListener(this);
     }
 
+
+
     @Override
     public void onClick(View view) {
         //Initializing Firebase database
@@ -63,9 +72,29 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
             String profileLocation = editTextLocation.getText().toString();
             String profileTennisLevel = spinnerTennisLevel.getSelectedItem().toString();
             String profileChessLevel = spinnerChessLevel.getSelectedItem().toString();
+            double profileLatitude = 0, profileLongitude = 0;
 
-            ProfileClass myProfile = new ProfileClass(profileEmailAddress, profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel);
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = null;
+
+            try {
+                addresses = geocoder.getFromLocationName(profileLocation, 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Invalid Address", Toast.LENGTH_SHORT).show();
+            }
+            Address address = addresses.get(0);
+            if(addresses.size() > 0) {
+                profileLatitude = addresses.get(0).getLatitude();
+                profileLongitude = addresses.get(0).getLongitude();
+            }
+
+            ProfileClass myProfile = new ProfileClass(profileEmailAddress, profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel, profileLatitude, profileLongitude);
             profileRef.push().setValue(myProfile);
+
+            Intent intentHome = new Intent(this,HomepageActivity.class);
+            intentHome.putExtra("Username", profileEmailAddress);
+            this.startActivity(intentHome);
         }
     }
 }

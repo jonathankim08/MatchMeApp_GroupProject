@@ -30,6 +30,7 @@ public class HomepageActivity extends Activity {
         chessRadioButton = (RadioButton) findViewById(R.id.radioButtonChess);
         tennisRadioButton = (RadioButton) findViewById(R.id.radioButtonTennis);
 
+
         //get email address
         Intent intent = getIntent();
         final String profileEmailAddress = intent.getStringExtra("Username");
