@@ -29,6 +29,7 @@ public class HomepageActivity extends Activity {
         setContentView(R.layout.activity_homepage);
         chessRadioButton = (RadioButton) findViewById(R.id.radioButtonChess);
         tennisRadioButton = (RadioButton) findViewById(R.id.radioButtonTennis);
+        slotListView = (ListView)  findViewById(R.id.ListViewcalenderslots);
 
 
         //get email address
@@ -36,7 +37,31 @@ public class HomepageActivity extends Activity {
         final String profileEmailAddress = intent.getStringExtra("Username");
     }
 
+    class CustomAdapter extends BaseAdapter {
 
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            view = getLayoutInflater().inflate(R.layout.calenderslots, null);
+            return null;
+
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/LinearlayoutCalenderslots"
+        android:layout_width="270dp"
+        android:layout_height="318dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/textView8to9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="8 am to 9am" />
+
+        <TextView
+            android:id="@+id/textView9to10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9am to 10am" />
+
+        <TextView
+            android:id="@+id/textView10to11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10am to 11am" />
+
+        <TextView
+            android:id="@+id/textView11to12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="11am to 12pm" />
+
+        <TextView
+            android:id="@+id/textView12to1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12pm to 1pm" />
+
+        <TextView
+            android:id="@+id/textView1to2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1pm to 2pm" />
+
+        <TextView
+            android:id="@+id/textView2to3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2pm to 3pm" />
+
+        <TextView
+            android:id="@+id/textView3to4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3pm to 4pm" />
+
+        <TextView
+            android:id="@+id/textView4to5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4pm to 5pm" />
+
+        <TextView
+            android:id="@+id/textView5to6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5pm to 6pm" />
+
+        <TextView
+            android:id="@+id/textView6to7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6pm to 7pm" />
+
+        <TextView
+            android:id="@+id/textView7to8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="7pm to 8pm" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
