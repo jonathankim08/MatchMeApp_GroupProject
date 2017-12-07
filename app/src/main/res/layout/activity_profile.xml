@@ -19,6 +19,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAgeValue" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
     <TextView
         android:id="@+id/textViewTennisLevel"
         android:layout_width="wrap_content"
@@ -26,6 +36,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:text="Tennis Level:"
+        android:textAlignment="textStart"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,19 +46,17 @@
         android:id="@+id/textViewChessLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="85dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:text="Chess Level:"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textViewChessLevelValue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTennisLevelValue" />
 
     <TextView
         android:id="@+id/textViewLocationValue"
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="42dp"
         android:layout_marginTop="24dp"
@@ -71,7 +80,7 @@
 
     <TextView
         android:id="@+id/textViewNameValue"
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="42dp"
         android:layout_marginTop="8dp"
@@ -97,7 +106,7 @@
 
     <TextView
         android:id="@+id/textViewAgeValue"
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="42dp"
         android:layout_marginStart="8dp"
@@ -110,24 +119,25 @@
 
     <TextView
         android:id="@+id/textViewTennisLevelValue"
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="42dp"
         android:layout_marginTop="24dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.913"
         app:layout_constraintStart_toEndOf="@+id/textViewTennisLevel"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocationValue" />
 
     <TextView
         android:id="@+id/textViewChessLevelValue"
-        android:layout_width="0dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginTop="24dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.809"
         app:layout_constraintStart_toEndOf="@+id/textViewChessLevel"
         app:layout_constraintTop_toBottomOf="@+id/textViewTennisLevelValue" />
 
@@ -161,7 +171,7 @@
         android:id="@+id/btnEditProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="68dp"
         android:text="Edit Profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
