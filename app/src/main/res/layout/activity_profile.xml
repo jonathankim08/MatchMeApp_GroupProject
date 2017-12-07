@@ -10,54 +10,50 @@
     <TextView
         android:id="@+id/textViewLocation"
         android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:layout_marginEnd="106dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="48dp"
-        android:text="Location"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Location:"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textViewLocationValue"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAge" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAgeValue" />
 
     <TextView
         android:id="@+id/textViewTennisLevel"
         android:layout_width="wrap_content"
-        android:layout_height="21dp"
-        android:layout_marginEnd="82dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="48dp"
-        android:text="Tennis level"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Tennis Level:"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textViewTennisLevelValue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewLocationValue" />
 
     <TextView
         android:id="@+id/textViewChessLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="85dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="48dp"
-        android:text="Chess level"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Chess Level:"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textViewChessLevelValue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTennisLevel" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTennisLevelValue" />
 
     <TextView
         android:id="@+id/textViewLocationValue"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="42dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.914"
         app:layout_constraintStart_toEndOf="@+id/textViewLocation"
         app:layout_constraintTop_toBottomOf="@+id/textViewAgeValue" />
 
@@ -65,60 +61,62 @@
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="128dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="108dp"
-        android:text="Name"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
+        android:text="Name:"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textViewNameValue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvInfo" />
 
     <TextView
         android:id="@+id/textViewNameValue"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="42dp"
+        android:layout_marginTop="8dp"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.948"
         app:layout_constraintStart_toEndOf="@+id/textViewName"
-        app:layout_constraintTop_toTopOf="@+id/textViewName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvInfo"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textViewAge"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="103dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="48dp"
-        android:text="Age"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Age:"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textViewAgeValue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewNameValue" />
 
     <TextView
         android:id="@+id/textViewAgeValue"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="43dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toEndOf="@+id/textViewAge"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameValue" />
 
     <TextView
         android:id="@+id/textViewTennisLevelValue"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginTop="24dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textViewTennisLevel"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocationValue" />
 
@@ -149,7 +147,7 @@
         android:id="@+id/tvInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="12dp"
         android:text="My Profile Information:"
         android:textAllCaps="true"
