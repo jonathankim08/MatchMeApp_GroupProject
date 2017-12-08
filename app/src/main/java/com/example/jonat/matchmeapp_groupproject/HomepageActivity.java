@@ -25,9 +25,14 @@ public class HomepageActivity extends Activity {
     private Spinner dateSpinner,monthSpinner;
     private ListView slotListView;
     private RadioButton chessRadioButton,tennisRadioButton;
+    private String activity, day, month;
     private String [] slots = {"8 am to 9am", "9am to 10am", "10am to 11am", "11am to 12pm", "12pm to 1pm",
             "1pm to 2pm", "2pm to 3pm", "3pm to 4pm",
             "4pm to 5pm", "5pm to 6pm", "6pm to 7pm", "7pm to 8pm"};
+    //get email address
+    Intent intent = getIntent();
+    final String profileEmailAddress = intent.getStringExtra("Username");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +42,62 @@ public class HomepageActivity extends Activity {
         tennisRadioButton = (RadioButton) findViewById(R.id.radioButtonTennis);
         slotListView = (ListView)  findViewById(R.id.ListViewcalenderslots);
         dateSpinner =  (Spinner) findViewById(R.id.spinnerDate);
+        //dateSpinner.setOnItemSelectedListener(this);
+
         monthSpinner = (Spinner) findViewById(R.id.spinnerMonth);
+        //monthSpinner.setOnItemSelectedListener(this);
         CustomAdapter customadapter = new CustomAdapter();
         slotListView.setAdapter(customadapter);
 
         slotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(HomepageActivity.this, "You clicked"+slots[i], Toast.LENGTH_SHORT).show();
+                //Toast.makeText(HomepageActivity.this, "You clicked"+ chessRadioButton, Toast.LENGTH_SHORT).show();
+               // InviteClass userInvite = new InviteClass(profileEmailAddress, activity, day, month,slots[i],"Open");
+                // spinner needs work for the above constructor to work
 
             }
         });
 
-        //get email address
-        Intent intent = getIntent();
-        final String profileEmailAddress = intent.getStringExtra("Username");
+        }
+    /*
+    public class SpinnerActivity extends  Activity implements AdapterView.OnItemSelectedListener
+
+    {
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            ;
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
     }
+    */
+
+    public void onRadioButtonClicked(View view)
+        {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radioButtonChess:
+                if (checked)
+                    activity = "chess";
+                    break;
+            case R.id.radioButtonTennis:
+                if (checked)
+                    activity = "tennis";
+                    break;
+        }
+        }
+
+
+
 
     class CustomAdapter extends BaseAdapter {
 
