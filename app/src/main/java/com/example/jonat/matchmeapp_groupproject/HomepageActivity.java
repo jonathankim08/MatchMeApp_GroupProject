@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -24,8 +25,9 @@ public class HomepageActivity extends Activity {
 
     private Spinner dateSpinner,monthSpinner;
     private ListView slotListView;
-    private RadioButton chessRadioButton,tennisRadioButton;
-    private String activity, day, month;
+    protected RadioGroup radioGroupactivity;
+    protected RadioButton chessRadioButton,tennisRadioButton;
+    protected String activity, day, month;
     private String [] slots = {"8 am to 9am", "9am to 10am", "10am to 11am", "11am to 12pm", "12pm to 1pm",
             "1pm to 2pm", "2pm to 3pm", "3pm to 4pm",
             "4pm to 5pm", "5pm to 6pm", "6pm to 7pm", "7pm to 8pm"};
@@ -38,26 +40,37 @@ public class HomepageActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        radioGroupactivity = (RadioGroup) findViewById(R.id.radioGroup2);
         chessRadioButton = (RadioButton) findViewById(R.id.radioButtonChess);
         tennisRadioButton = (RadioButton) findViewById(R.id.radioButtonTennis);
+
         slotListView = (ListView)  findViewById(R.id.ListViewcalenderslots);
         dateSpinner =  (Spinner) findViewById(R.id.spinnerDate);
         //dateSpinner.setOnItemSelectedListener(this);
 
         monthSpinner = (Spinner) findViewById(R.id.spinnerMonth);
         //monthSpinner.setOnItemSelectedListener(this);
+
+        //List view code follows:
         CustomAdapter customadapter = new CustomAdapter();
         slotListView.setAdapter(customadapter);
 
         slotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(HomepageActivity.this, "You clicked"+ chessRadioButton, Toast.LENGTH_SHORT).show();
+                if (chessRadioButton.isChecked())
+                    activity = "chess";
+                if (tennisRadioButton.isChecked())
+                    activity = "tennis";
+
+                Toast.makeText(HomepageActivity.this, "You clicked" + activity + "for" + slots[i], Toast.LENGTH_SHORT).show();
                // InviteClass userInvite = new InviteClass(profileEmailAddress, activity, day, month,slots[i],"Open");
                 // spinner needs work for the above constructor to work
 
             }
         });
+
 
         }
     /*
@@ -77,6 +90,7 @@ public class HomepageActivity extends Activity {
         }
     }
     */
+
 
     /*public void onRadioButtonClicked(View view)
         {
