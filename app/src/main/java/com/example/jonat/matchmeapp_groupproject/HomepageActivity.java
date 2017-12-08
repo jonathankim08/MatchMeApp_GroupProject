@@ -10,18 +10,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomepageActivity extends Activity {
 
     private Spinner dateSpinner,monthSpinner;
     private ListView slotListView;
     private RadioButton chessRadioButton,tennisRadioButton;
-
+    private String [] slots = {"8 am to 9am", "9am to 10am", "10am to 11am", "11am to 12pm", "12pm to 1pm",
+            "1pm to 2pm", "2pm to 3pm", "3pm to 4pm",
+            "4pm to 5pm", "5pm to 6pm", "6pm to 7pm", "7pm to 8pm"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +36,18 @@ public class HomepageActivity extends Activity {
         chessRadioButton = (RadioButton) findViewById(R.id.radioButtonChess);
         tennisRadioButton = (RadioButton) findViewById(R.id.radioButtonTennis);
         slotListView = (ListView)  findViewById(R.id.ListViewcalenderslots);
+        dateSpinner =  (Spinner) findViewById(R.id.spinnerDate);
+        monthSpinner = (Spinner) findViewById(R.id.spinnerMonth);
+        CustomAdapter customadapter = new CustomAdapter();
+        slotListView.setAdapter(customadapter);
 
+        slotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Toast.makeText(HomepageActivity.this, "You clicked"+slots[i], Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         //get email address
         Intent intent = getIntent();
@@ -41,7 +58,7 @@ public class HomepageActivity extends Activity {
 
         @Override
         public int getCount() {
-            return 0;
+            return slots.length;
         }
 
         @Override
@@ -58,7 +75,11 @@ public class HomepageActivity extends Activity {
         public View getView(int i, View view, ViewGroup viewGroup) {
 
             view = getLayoutInflater().inflate(R.layout.calenderslots, null);
-            return null;
+            TextView textViewSlot = view.findViewById(R.id.textViewslot) ;
+
+            textViewSlot.setText(slots[i]);
+
+            return view;
 
         }
     }

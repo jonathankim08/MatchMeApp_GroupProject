@@ -24,12 +24,12 @@
 
     <TextView
         android:id="@+id/textViewSelectActivity"
-        android:layout_width="130dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Select One Activity:"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toTopOf="@+id/imageChess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,18 +37,18 @@
         tools:textSize="14sp" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageChess"
         android:layout_width="75dp"
         android:layout_height="68dp"
         android:src="@drawable/chess"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintBottom_toTopOf="@+id/imageTennis"
         app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/radioGroup2"
         app:layout_constraintTop_toBottomOf="@+id/textViewSelectActivity" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageTennis"
         android:layout_width="75dp"
         android:layout_height="68dp"
         android:src="@drawable/tennis"
@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textViewSelectSlot"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewSelectSlot"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageChess" />
 
     <RadioGroup
         android:id="@+id/radioGroup2"
@@ -131,7 +131,7 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:text="Select One Time Slot:"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
