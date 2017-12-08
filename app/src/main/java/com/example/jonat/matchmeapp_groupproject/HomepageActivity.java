@@ -78,7 +78,7 @@ public class HomepageActivity extends Activity {
     }
     */
 
-    public void onRadioButtonClicked(View view)
+    /*public void onRadioButtonClicked(View view)
         {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -88,15 +88,16 @@ public class HomepageActivity extends Activity {
             case R.id.radioButtonChess:
                 if (checked)
                     activity = "chess";
+                    //Toast.makeText(this, "You clicked on" + activity , Toast.LENGTH_SHORT).show();
                     break;
             case R.id.radioButtonTennis:
                 if (checked)
                     activity = "tennis";
+                    //Toast.makeText(this, "You clicked on" + activity , Toast.LENGTH_SHORT).show();
                     break;
         }
         }
-
-
+    */
 
 
     class CustomAdapter extends BaseAdapter {
