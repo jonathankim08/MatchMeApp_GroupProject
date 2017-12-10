@@ -46,9 +46,6 @@ public class HomepageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
-        Intent intent = getIntent();
-        final String profileEmailAddress = intent.getStringExtra("Username");
-
         radioGroupactivity = (RadioGroup) findViewById(R.id.radioGroup2);
         chessRadioButton = (RadioButton) findViewById(R.id.radioButtonChess);
         tennisRadioButton = (RadioButton) findViewById(R.id.radioButtonTennis);
@@ -69,27 +66,31 @@ public class HomepageActivity extends Activity {
         slotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                
+                String day = dateSpinner.getSelectedItem().toString();
+                String month = monthSpinner.getSelectedItem().toString();
 
-                if (chessRadioButton.isChecked())
+                if (chessRadioButton.isChecked()) {
                     activity = "chess";
-                if (tennisRadioButton.isChecked())
+                    addToDatabase(day, month, i);
+                } else if (tennisRadioButton.isChecked()) {
                     activity = "tennis";
-
-                FirebaseDatabase db = FirebaseDatabase.getInstance();
-                final DatabaseReference inviteRef = db.getReference("Invites");
-
-
-                Toast.makeText(HomepageActivity.this, "You clicked " + activity + " for " + slots[i], Toast.LENGTH_SHORT).show();
-
-                InviteClass userInvite = new InviteClass(profileEmailAddress, activity, day, month, slots[i],"Open");
-                inviteRef.push().setValue(userInvite);
-                // spinner needs work for the above constructor to work
-
+                    addToDatabase(day, month, i);
+                } else if (!(tennisRadioButton.isChecked() && chessRadioButton.isChecked())) {
+                    Toast.makeText(HomepageActivity.this, "Please select an activity!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+        }
 
+        private void addToDatabase(String day, String month, int i) {
+            Intent intent = getIntent();
+            final String profileEmailAddress = intent.getStringExtra("Username");
 
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            final DatabaseReference inviteRef = db.getReference("Invites");
+
+            InviteClass userInvite = new InviteClass(profileEmailAddress, activity, day, month, slots[i],"Open");
+            inviteRef.push().setValue(userInvite);
         }
 
     class CustomAdapter extends BaseAdapter {
