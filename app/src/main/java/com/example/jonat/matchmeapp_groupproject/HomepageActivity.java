@@ -60,8 +60,9 @@ public class HomepageActivity extends Activity {
                 if (tennisRadioButton.isChecked())
                     activity = "tennis";
 
-                Toast.makeText(HomepageActivity.this, "You clicked" + activity + "for" + slots[i], Toast.LENGTH_SHORT).show();
-               // InviteClass userInvite = new InviteClass(profileEmailAddress, activity, day, month,slots[i],"Open");
+                Toast.makeText(HomepageActivity.this, "You clicked " + activity + " for " + slots[i], Toast.LENGTH_SHORT).show();
+
+                // InviteClass userInvite = new InviteClass(profileEmailAddress, activity, day, month, slots[i],"Open");
                 // spinner needs work for the above constructor to work
 
             }
@@ -87,27 +88,6 @@ public class HomepageActivity extends Activity {
     }
     */
 
-
-    /*public void onRadioButtonClicked(View view)
-        {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.radioButtonChess:
-                if (checked)
-                    activity = "chess";
-                    //Toast.makeText(this, "You clicked on" + activity , Toast.LENGTH_SHORT).show();
-                    break;
-            case R.id.radioButtonTennis:
-                if (checked)
-                    activity = "tennis";
-                    //Toast.makeText(this, "You clicked on" + activity , Toast.LENGTH_SHORT).show();
-                    break;
-        }
-        }
-    */
 
 
     class CustomAdapter extends BaseAdapter {
