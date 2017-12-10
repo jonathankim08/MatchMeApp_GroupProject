@@ -57,7 +57,6 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         lvPendingMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MyMatchesActivity.this, "You Clicked: " + NAMES[i], Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -65,7 +64,6 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         lvConfirmedMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MyMatchesActivity.this, "You Clicked: " + NAMES[i], Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -106,13 +104,6 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        //initializing Firebase database
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        final DatabaseReference bookRef = db.getReference("ProfileClass");
-
-        //get User information
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String currentUser = user.getUid().toString();
 
     }
 

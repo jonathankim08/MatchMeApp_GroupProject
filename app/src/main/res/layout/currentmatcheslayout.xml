@@ -19,8 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvName"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:layout_toEndOf="@+id/tvName"
         android:layout_toRightOf="@+id/tvName"
         android:text="TextView"
@@ -57,13 +57,31 @@
 
     <Button
         android:id="@+id/buttonSendChat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvLocation"
-        android:layout_alignBottom="@+id/tvLocation"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginEnd="13dp"
-        android:layout_marginRight="13dp"
-        android:text="Send Chat" />
+        android:layout_below="@+id/tvGame"
+        android:text="Send Chat"
+        android:textSize="14dp" />
+
+    <Button
+        android:id="@+id/buttonAccept"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/tvGame"
+        android:layout_toLeftOf="@+id/buttonSendChat"
+        android:layout_toStartOf="@+id/buttonSendChat"
+        android:text="Accept"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/buttonDecline"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/ivPicture"
+        android:layout_toLeftOf="@+id/buttonSendChat"
+        android:layout_toStartOf="@+id/buttonSendChat"
+        android:text="Decline"
+        android:textSize="14sp" />
 </RelativeLayout>
