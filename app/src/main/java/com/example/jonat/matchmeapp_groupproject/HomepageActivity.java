@@ -87,10 +87,10 @@ public class HomepageActivity extends Activity {
             final String profileEmailAddress = intent.getStringExtra("Username");
 
             FirebaseDatabase db = FirebaseDatabase.getInstance();
-            final DatabaseReference inviteRef = db.getReference("Invites");
+            final DatabaseReference matchPoolRef = db.getReference("MatchPool");
 
-            InviteClass userInvite = new InviteClass(profileEmailAddress, activity, day, month, slots[i],"Open");
-            inviteRef.push().setValue(userInvite);
+            MatchPoolClass myMatchPool = new MatchPoolClass(profileEmailAddress, activity, day, month, slots[i],"Open");
+            matchPoolRef.push().setValue(myMatchPool);
         }
 
     class CustomAdapter extends BaseAdapter {
