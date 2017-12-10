@@ -11,15 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
     private TextView tvTitle, tvPendingMatches, tvConfirmedMatches;
     private ListView lvPendingMatches, lvConfirmedMatches;
+    private Button buttonSendChat;
 
     private String[] NAMES  = {"Jyoty","Arjun"};
     private String[] GAMES = {"Tennis","Chess"};
@@ -39,15 +46,19 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         lvPendingMatches = findViewById(R.id.lvPendingMatches);
         lvConfirmedMatches = findViewById(R.id.lvConfirmedMatches);
 
+        buttonSendChat = findViewById(R.id.buttonSendChat);
+        buttonSendChat.setOnClickListener(this);
+
+
         CustomAdaptor customAdaptor = new CustomAdaptor();
         lvPendingMatches.setAdapter(customAdaptor);
         lvConfirmedMatches.setAdapter(customAdaptor);
-
 
         lvPendingMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(MyMatchesActivity.this, "You Clicked: " + NAMES[i], Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -95,6 +106,13 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
+        //initializing Firebase database
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final DatabaseReference bookRef = db.getReference("ProfileClass");
+
+        //get User information
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String currentUser = user.getUid().toString();
 
     }
 
