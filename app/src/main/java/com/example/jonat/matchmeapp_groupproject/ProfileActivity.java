@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +27,7 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
     private TextView textViewName, textViewAge, textViewLocation, textViewTennisLevel, textViewChessLevel;
     private TextView textViewNameValue, textViewAgeValue, textViewLocationValue, textViewTennisLevelValue, textViewChessLevelValue;
     private Button EditProfile;
+    private FirebaseAuth mAuth;
 
     String profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel;
 
@@ -53,11 +55,13 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
 
         EditProfile.setOnClickListener(this);
 
+        mAuth = FirebaseAuth.getInstance();
+
         //Initializing Firebase database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final DatabaseReference profileRef = db.getReference("Profiles");
 
-        profileRef.orderByChild("profileEmailAddress").equalTo(profileEmailAddress).addValueEventListener(new ValueEventListener() {
+        profileRef.child(mAuth.getCurrentUser().getUid()).orderByChild("profileEmailAddress").equalTo(profileEmailAddress).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() ==  null) {

@@ -123,23 +123,23 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             Intent intentHome = new Intent(this,HomepageActivity.class);
             intentHome.putExtra("Username", profileEmailAddress);
             this.startActivity(intentHome);
-        }else if(item.getItemId() == R.id.myPotentialMatchesMenu){
+        } else if(item.getItemId() == R.id.myPotentialMatchesMenu){
             Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
             intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
             this.startActivity(intentMyPotentialMatches);
-        }else if(item.getItemId() == R.id.myMatchesMenu){
+        } else if(item.getItemId() == R.id.myMatchesMenu){
             Intent intentMyMatches = new Intent(this,MyMatchesActivity.class);
             intentMyMatches.putExtra("Username", profileEmailAddress);
             this.startActivity(intentMyMatches);
-        }else if (item.getItemId() == R.id.chatMenu){
+        } else if (item.getItemId() == R.id.chatMenu){
             Intent intentChat = new Intent(this,ChatActivity.class);
             intentChat.putExtra("Username", profileEmailAddress);
             this.startActivity(intentChat);
-        }else if (item.getItemId() == R.id.profileMenu){
+        } else if (item.getItemId() == R.id.profileMenu){
             Intent intentProfile = new Intent(this,ProfileActivity.class);
             intentProfile.putExtra("Username", profileEmailAddress);
             this.startActivity(intentProfile);
-        }else if (item.getItemId() == R.id.logoutMenu){
+        } else if (item.getItemId() == R.id.logoutMenu){
             Intent intentLogout = new Intent(this,MainActivity.class);
             intentLogout.putExtra("Username", profileEmailAddress);
             this.startActivity(intentLogout);

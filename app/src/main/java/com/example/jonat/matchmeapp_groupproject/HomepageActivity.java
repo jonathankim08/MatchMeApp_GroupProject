@@ -28,12 +28,11 @@ public class HomepageActivity extends Activity {
     protected RadioGroup radioGroupactivity;
     protected RadioButton chessRadioButton,tennisRadioButton;
     protected String activity, day, month;
-    private String [] slots = {"8 am to 9am", "9am to 10am", "10am to 11am", "11am to 12pm", "12pm to 1pm",
+    private String [] slots = {"8am to 9am", "9am to 10am", "10am to 11am", "11am to 12pm", "12pm to 1pm",
             "1pm to 2pm", "2pm to 3pm", "3pm to 4pm",
             "4pm to 5pm", "5pm to 6pm", "6pm to 7pm", "7pm to 8pm"};
     //get email address
     Intent intent = getIntent();
-    final String profileEmailAddress = intent.getStringExtra("Username");
 
 
     @Override

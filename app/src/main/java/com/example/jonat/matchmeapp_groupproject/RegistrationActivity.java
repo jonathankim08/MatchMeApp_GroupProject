@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,10 +28,11 @@ import java.util.Locale;
 public class RegistrationActivity extends Activity implements View.OnClickListener {
 
     //declare objects
-    private TextView textViewEditProfile, textViewName, textViewAge, textViewLocation, textViewTennisLevel, textViewChessLevel;
+    private TextView textViewName, textViewAge, textViewLocation, textViewTennisLevel, textViewChessLevel;
     private EditText editTextName,editTextAge, editTextLocation;
     private Spinner spinnerTennisLevel, spinnerChessLevel;
     private Button buttonSubmit;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,6 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         String Name = intent.getStringExtra("Name");
         String Age = intent.getStringExtra("Age");
         String Location = intent.getStringExtra("Location");
-        String TennisLevel = intent.getStringExtra("TennisLevel");
-        String ChessLevel = intent.getStringExtra("ChessLevel");
 
         //link objects
         textViewName = (TextView) findViewById(R.id.textViewName);
@@ -63,9 +63,9 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         editTextName.setText(Name);
         editTextAge.setText(Age);
         editTextLocation.setText(Location);
+
+        mAuth = FirebaseAuth.getInstance();
     }
-
-
 
     @Override
     public void onClick(View view) {
@@ -76,7 +76,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         if (view == buttonSubmit) {
             //get email address
             Intent intent = getIntent();
-            String profileEmailAddress = intent.getStringExtra("Username");
+            String profileEmailAddress = "neil@neil.com";
             String profileName = editTextName.getText().toString();
             String profileAge = editTextAge.getText().toString();
             String profileLocation = editTextLocation.getText().toString();
@@ -100,9 +100,9 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
             }
 
             ProfileClass myProfile = new ProfileClass(profileEmailAddress, profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel, profileLatitude, profileLongitude);
-            profileRef.push().setValue(myProfile);
+            profileRef.child(mAuth.getCurrentUser().getUid()).push().setValue(myProfile);
 
-            Intent intentHome = new Intent(this,HomepageActivity.class);
+            Intent intentHome = new Intent(this, HomepageActivity.class);
             intentHome.putExtra("Username", profileEmailAddress);
             this.startActivity(intentHome);
         }
