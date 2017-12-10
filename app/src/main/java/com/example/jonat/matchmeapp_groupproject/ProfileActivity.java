@@ -147,14 +147,11 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
         if (view == EditProfile) {
             Intent intentRegistration = new Intent(this, RegistrationActivity.class);
             intentRegistration.putExtra("Name", profileName);
             intentRegistration.putExtra("Age", profileAge);
             intentRegistration.putExtra("Location", profileLocation);
-            intentRegistration.putExtra("TennisLevel", profileTennisLevel);
-            intentRegistration.putExtra("ChessLevel", profileChessLevel);
             this.startActivity(intentRegistration);
         }
     }
