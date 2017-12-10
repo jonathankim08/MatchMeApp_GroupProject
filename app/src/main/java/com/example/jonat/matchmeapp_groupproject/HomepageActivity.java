@@ -21,6 +21,14 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class HomepageActivity extends Activity {
 
     private Spinner dateSpinner,monthSpinner;
@@ -28,14 +36,18 @@ public class HomepageActivity extends Activity {
     protected RadioGroup radioGroupactivity;
     protected RadioButton chessRadioButton,tennisRadioButton;
     protected String activity, day, month;
-    private String [] slots = {"8am to 9am", "9am to 10am", "10am to 11am", "11am to 12pm", "12pm to 1pm",
-            "1pm to 2pm", "2pm to 3pm", "3pm to 4pm",
-            "4pm to 5pm", "5pm to 6pm", "6pm to 7pm", "7pm to 8pm"};
+    private String [] slots = {"8:00 am to 9:00 am", "9:00 am to 10:00 am", "10:00 am to 11:00 am", "11:00 am to 12:00 pm", "12:00 pm to 1:00 pm",
+            "1:00 pm to 2:00 pm", "2:00 pm to 3:00 pm", "3:00 pm to 4:00 pm",
+            "4:00 pm to 5:00 pm", "5:00 pm to 6:00 pm", "6:00 pm to 7:00 pm", "7:00 pm to 8:00 pm"};
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        Intent intent = getIntent();
+        final String profileEmailAddress = intent.getStringExtra("Username");
 
         radioGroupactivity = (RadioGroup) findViewById(R.id.radioGroup2);
         chessRadioButton = (RadioButton) findViewById(R.id.radioButtonChess);
@@ -48,6 +60,8 @@ public class HomepageActivity extends Activity {
         monthSpinner = (Spinner) findViewById(R.id.spinnerMonth);
         //monthSpinner.setOnItemSelectedListener(this);
 
+        mAuth = FirebaseAuth.getInstance();
+
         //List view code follows:
         CustomAdapter customadapter = new CustomAdapter();
         slotListView.setAdapter(customadapter);
@@ -55,14 +69,21 @@ public class HomepageActivity extends Activity {
         slotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                
+
                 if (chessRadioButton.isChecked())
                     activity = "chess";
                 if (tennisRadioButton.isChecked())
                     activity = "tennis";
 
+                FirebaseDatabase db = FirebaseDatabase.getInstance();
+                final DatabaseReference inviteRef = db.getReference("Invites");
+
+
                 Toast.makeText(HomepageActivity.this, "You clicked " + activity + " for " + slots[i], Toast.LENGTH_SHORT).show();
 
-                // InviteClass userInvite = new InviteClass(profileEmailAddress, activity, day, month, slots[i],"Open");
+                InviteClass userInvite = new InviteClass(profileEmailAddress, activity, day, month, slots[i],"Open");
+                inviteRef.push().setValue(userInvite);
                 // spinner needs work for the above constructor to work
 
             }
@@ -70,25 +91,6 @@ public class HomepageActivity extends Activity {
 
 
         }
-    /*
-    public class SpinnerActivity extends  Activity implements AdapterView.OnItemSelectedListener
-
-    {
-
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            ;
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    }
-    */
-
-
 
     class CustomAdapter extends BaseAdapter {
 
@@ -132,23 +134,32 @@ public class HomepageActivity extends Activity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Intent intent = getIntent();
+        String profileEmailAddress = intent.getStringExtra("Username");
+
         if (item.getItemId() == R.id.homeMenu){
             Intent intentHome = new Intent(this,HomepageActivity.class);
+            intentHome.putExtra("Username", profileEmailAddress);
             this.startActivity(intentHome);
         } else if(item.getItemId() == R.id.myPotentialMatchesMenu){
             Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
+            intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
             this.startActivity(intentMyPotentialMatches);
         } else if(item.getItemId() == R.id.myMatchesMenu){
             Intent intentMyMatches = new Intent(this,MyMatchesActivity.class);
+            intentMyMatches.putExtra("Username", profileEmailAddress);
             this.startActivity(intentMyMatches);
         } else if (item.getItemId() == R.id.chatMenu){
             Intent intentChat = new Intent(this,ChatActivity.class);
+            intentChat.putExtra("Username", profileEmailAddress);
             this.startActivity(intentChat);
         } else if (item.getItemId() == R.id.profileMenu){
             Intent intentProfile = new Intent(this,ProfileActivity.class);
+            intentProfile.putExtra("Username", profileEmailAddress);
             this.startActivity(intentProfile);
         } else if (item.getItemId() == R.id.logoutMenu){
             Intent intentLogout = new Intent(this,MainActivity.class);
+            intentLogout.putExtra("Username", profileEmailAddress);
             this.startActivity(intentLogout);
         }
 
