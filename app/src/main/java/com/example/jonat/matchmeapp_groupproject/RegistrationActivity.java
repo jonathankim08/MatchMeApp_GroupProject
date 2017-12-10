@@ -27,7 +27,6 @@ import java.util.Locale;
 
 public class RegistrationActivity extends Activity implements View.OnClickListener {
 
-    //declare objects
     private TextView textViewName, textViewAge, textViewLocation, textViewTennisLevel, textViewChessLevel;
     private EditText editTextName,editTextAge, editTextLocation;
     private Spinner spinnerTennisLevel, spinnerChessLevel;
@@ -44,7 +43,6 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         String Age = intent.getStringExtra("Age");
         String Location = intent.getStringExtra("Location");
 
-        //link objects
         textViewName = (TextView) findViewById(R.id.textViewName);
         textViewAge = (TextView) findViewById(R.id.textViewAge);
         textViewLocation = (TextView) findViewById(R.id.textViewLocation);
@@ -57,7 +55,6 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         spinnerChessLevel = (Spinner) findViewById(R.id.spinnerChessLevel);
         buttonSubmit = (Button) findViewById(R.id.buttonSubmit);
 
-        //set up button listener
         buttonSubmit.setOnClickListener(this);
 
         editTextName.setText(Name);
@@ -74,9 +71,8 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         final DatabaseReference profileRef = db.getReference("Profiles");
 
         if (view == buttonSubmit) {
-            //get email address
             Intent intent = getIntent();
-            String profileEmailAddress = "neil@neil.com";
+            String profileEmailAddress = intent.getStringExtra("Username");
             String profileName = editTextName.getText().toString();
             String profileAge = editTextAge.getText().toString();
             String profileLocation = editTextLocation.getText().toString();
@@ -103,7 +99,6 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
             profileRef.child(mAuth.getCurrentUser().getUid()).push().setValue(myProfile);
 
             Intent intentHome = new Intent(this, HomepageActivity.class);
-            intentHome.putExtra("Username", profileEmailAddress);
             this.startActivity(intentHome);
         }
     }

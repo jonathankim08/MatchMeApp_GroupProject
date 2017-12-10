@@ -36,10 +36,6 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        //get email address
-        Intent intent = getIntent();
-        final String profileEmailAddress = intent.getStringExtra("Username");
-
         //link objects
         textViewName = (TextView) findViewById(R.id.textViewName);
         textViewAge = (TextView) findViewById(R.id.textViewAge);
@@ -61,14 +57,14 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final DatabaseReference profileRef = db.getReference("Profiles");
 
-        profileRef.child(mAuth.getCurrentUser().getUid()).orderByChild("profileEmailAddress").equalTo(profileEmailAddress).addValueEventListener(new ValueEventListener() {
+        profileRef.child(mAuth.getCurrentUser().getUid()).limitToLast(1).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() ==  null) {
-                    Toast.makeText(ProfileActivity.this, "Email Address Not Found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    profileRef.orderByChild("profileEmailAddress").equalTo(profileEmailAddress).addChildEventListener(new ChildEventListener() {
+                    profileRef.child(mAuth.getCurrentUser().getUid()).limitToLast(1).addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             ProfileClass findProfile = new ProfileClass();
@@ -126,33 +122,23 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        //get email address
-        Intent intent = getIntent();
-        final String profileEmailAddress = intent.getStringExtra("Username");
-
         if (item.getItemId() == R.id.homeMenu){
             Intent intentHome = new Intent(this,HomepageActivity.class);
-            intentHome.putExtra("Username", profileEmailAddress);
             this.startActivity(intentHome);
-        }else if(item.getItemId() == R.id.myPotentialMatchesMenu){
+        } else if(item.getItemId() == R.id.myPotentialMatchesMenu){
             Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
-            intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
             this.startActivity(intentMyPotentialMatches);
-        }else if(item.getItemId() == R.id.myMatchesMenu){
+        } else if(item.getItemId() == R.id.myMatchesMenu){
             Intent intentMyMatches = new Intent(this,MyMatchesActivity.class);
-            intentMyMatches.putExtra("Username", profileEmailAddress);
             this.startActivity(intentMyMatches);
-        }else if (item.getItemId() == R.id.chatMenu){
+        } else if (item.getItemId() == R.id.chatMenu){
             Intent intentChat = new Intent(this,ChatActivity.class);
-            intentChat.putExtra("Username", profileEmailAddress);
             this.startActivity(intentChat);
-        }else if (item.getItemId() == R.id.profileMenu){
+        } else if (item.getItemId() == R.id.profileMenu){
             Intent intentProfile = new Intent(this,ProfileActivity.class);
-            intentProfile.putExtra("Username", profileEmailAddress);
             this.startActivity(intentProfile);
-        }else if (item.getItemId() == R.id.logoutMenu){
+        } else if (item.getItemId() == R.id.logoutMenu){
             Intent intentLogout = new Intent(this,MainActivity.class);
-            intentLogout.putExtra("Username", profileEmailAddress);
             this.startActivity(intentLogout);
         }
 
@@ -162,13 +148,8 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        //get email address
-        Intent intent = getIntent();
-        final String profileEmailAddress = intent.getStringExtra("Username");
-
         if (view == EditProfile) {
             Intent intentRegistration = new Intent(this, RegistrationActivity.class);
-            intentRegistration.putExtra("Username", profileEmailAddress);
             intentRegistration.putExtra("Name", profileName);
             intentRegistration.putExtra("Age", profileAge);
             intentRegistration.putExtra("Location", profileLocation);
