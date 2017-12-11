@@ -21,9 +21,9 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
     private TextView tvTitle, tvPendingMatches, tvConfirmedMatches;
     private ListView lvPendingMatches, lvConfirmedMatches;
 
-    private String[] NAMES  = {"Jyoty","Arjun"};
+    private String[] NAMES  = {"Joe","Arjun"};
     private String[] GAMES = {"Tennis","Chess"};
-    private String[] DAYTIME = {"Friday 6:00-8:00 PM","Saturday 1:00-3:00 PM"};
+    private String[] DAYTIME = {"Monday 9:00-10:00 AM","Saturday 1:00-3:00 PM"};
     private String[] LOCATION = {"Public Courts","Chess Hall"};
     private int[] IMAGES = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
 
