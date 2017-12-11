@@ -36,8 +36,8 @@ public class HomepageActivity extends Activity {
     protected RadioGroup radioGroupactivity;
     protected RadioButton chessRadioButton,tennisRadioButton;
     protected String activity, day, month;
-    private String [] slots = {"8:00 am to 9:00 am", "9:00 am to 10:00 am", "10:00 am to 11:00 am", "11:00 am to 12:00 pm", "12:00 pm to 1:00 pm",
-            "1:00 pm to 2:00 pm", "2:00 pm to 3:00 pm", "3:00 pm to 4:00 pm", "4:00 pm to 5:00 pm", "5:00 pm to 6:00 pm", "6:00 pm to 7:00 pm", "7:00 pm to 8:00 pm"};
+    private String [] slots = {"8:00-9:00 AM", "9:00-10:00 AM", "10:00-11:00 AM", "11:00 AM-12:00 PM", "12:00-1:00 PM",
+            "1:00-2:00 PM", "2:00-3:00 PM", "3:00-4:00 PM", "4:00-5:00 PM", "5:00-6:00 PM", "6:00-7:00 PM", "7:00-8:00 PM"};
     private FirebaseAuth mAuth;
 
     @Override
@@ -51,10 +51,7 @@ public class HomepageActivity extends Activity {
 
         slotListView = (ListView)  findViewById(R.id.ListViewcalenderslots);
         dateSpinner =  (Spinner) findViewById(R.id.spinnerDate);
-        //dateSpinner.setOnItemSelectedListener(this);
-
         monthSpinner = (Spinner) findViewById(R.id.spinnerMonth);
-        //monthSpinner.setOnItemSelectedListener(this);
 
         mAuth = FirebaseAuth.getInstance();
 
