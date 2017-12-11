@@ -21,6 +21,14 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class HomepageActivity extends Activity {
 
     private Spinner dateSpinner,monthSpinner;
@@ -28,9 +36,9 @@ public class HomepageActivity extends Activity {
     protected RadioGroup radioGroupactivity;
     protected RadioButton chessRadioButton,tennisRadioButton;
     protected String activity, day, month;
-    private String [] slots = {"8am to 9am", "9am to 10am", "10am to 11am", "11am to 12pm", "12pm to 1pm",
-            "1pm to 2pm", "2pm to 3pm", "3pm to 4pm",
-            "4pm to 5pm", "5pm to 6pm", "6pm to 7pm", "7pm to 8pm"};
+    private String [] slots = {"8:00-9:00 AM", "9:00-10:00 AM", "10:00-11:00 AM", "11:00 AM-12:00 PM", "12:00-1:00 PM",
+            "1:00-2:00 PM", "2:00-3:00 PM", "3:00-4:00 PM", "4:00-5:00 PM", "5:00-6:00 PM", "6:00-7:00 PM", "7:00-8:00 PM"};
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,72 +51,44 @@ public class HomepageActivity extends Activity {
 
         slotListView = (ListView)  findViewById(R.id.ListViewcalenderslots);
         dateSpinner =  (Spinner) findViewById(R.id.spinnerDate);
-        //dateSpinner.setOnItemSelectedListener(this);
-
         monthSpinner = (Spinner) findViewById(R.id.spinnerMonth);
-        //monthSpinner.setOnItemSelectedListener(this);
 
-        //List view code follows:
+        mAuth = FirebaseAuth.getInstance();
+
         CustomAdapter customadapter = new CustomAdapter();
         slotListView.setAdapter(customadapter);
 
         slotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (chessRadioButton.isChecked())
+                day = dateSpinner.getSelectedItem().toString();
+                month = monthSpinner.getSelectedItem().toString();
+
+                if (chessRadioButton.isChecked()) {
                     activity = "chess";
-                if (tennisRadioButton.isChecked())
+                    addToDatabase(day, month, i);
+                    sendToPotential(activity, day, month, i);
+                } else if (tennisRadioButton.isChecked()) {
                     activity = "tennis";
-
-                Toast.makeText(HomepageActivity.this, "You clicked" + activity + "for" + slots[i], Toast.LENGTH_SHORT).show();
-               // InviteClass userInvite = new InviteClass(profileEmailAddress, activity, day, month,slots[i],"Open");
-                // spinner needs work for the above constructor to work
-
+                    addToDatabase(day, month, i);
+                    sendToPotential(activity, day, month, i);
+                } else if (!(tennisRadioButton.isChecked() && chessRadioButton.isChecked())) {
+                    Toast.makeText(HomepageActivity.this, "Please select an activity!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
-        }
-    /*
-    public class SpinnerActivity extends  Activity implements AdapterView.OnItemSelectedListener
-
-    {
-
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            ;
-
         }
 
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
+        private void addToDatabase(String day, String month, int i) {
+            Intent intent = getIntent();
+            final String profileEmailAddress = intent.getStringExtra("Username");
 
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            final DatabaseReference matchPoolRef = db.getReference("MatchPool");
+
+            MatchPoolClass myMatchPool = new MatchPoolClass(profileEmailAddress, activity, day, month, slots[i],"Open");
+            matchPoolRef.push().setValue(myMatchPool);
         }
-    }
-    */
-
-
-    /*public void onRadioButtonClicked(View view)
-        {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.radioButtonChess:
-                if (checked)
-                    activity = "chess";
-                    //Toast.makeText(this, "You clicked on" + activity , Toast.LENGTH_SHORT).show();
-                    break;
-            case R.id.radioButtonTennis:
-                if (checked)
-                    activity = "tennis";
-                    //Toast.makeText(this, "You clicked on" + activity , Toast.LENGTH_SHORT).show();
-                    break;
-        }
-        }
-    */
-
 
     class CustomAdapter extends BaseAdapter {
 
@@ -148,27 +128,48 @@ public class HomepageActivity extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
+    private void sendToPotential(String activity, String day, String month, int i) {
+        Intent intent = getIntent();
+        String profileEmailAddress = intent.getStringExtra("Username");
 
+        Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
+        intentMyPotentialMatches.putExtra("Activity", activity);
+        intentMyPotentialMatches.putExtra("Day", day);
+        intentMyPotentialMatches.putExtra("Month", month);
+        intentMyPotentialMatches.putExtra("Slot", slots[i]);
+        intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
+        this.startActivity(intentMyPotentialMatches);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent = getIntent();
+        String profileEmailAddress = intent.getStringExtra("Username");
 
         if (item.getItemId() == R.id.homeMenu){
             Intent intentHome = new Intent(this,HomepageActivity.class);
+            intentHome.putExtra("Username", profileEmailAddress);
             this.startActivity(intentHome);
         } else if(item.getItemId() == R.id.myPotentialMatchesMenu){
             Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
+            intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
             this.startActivity(intentMyPotentialMatches);
         } else if(item.getItemId() == R.id.myMatchesMenu){
             Intent intentMyMatches = new Intent(this,MyMatchesActivity.class);
+            intentMyMatches.putExtra("Username", profileEmailAddress);
             this.startActivity(intentMyMatches);
         } else if (item.getItemId() == R.id.chatMenu){
             Intent intentChat = new Intent(this,ChatActivity.class);
+            intentChat.putExtra("Username", profileEmailAddress);
             this.startActivity(intentChat);
         } else if (item.getItemId() == R.id.profileMenu){
             Intent intentProfile = new Intent(this,ProfileActivity.class);
+            intentProfile.putExtra("Username", profileEmailAddress);
             this.startActivity(intentProfile);
         } else if (item.getItemId() == R.id.logoutMenu){
             Intent intentLogout = new Intent(this,MainActivity.class);
+            intentLogout.putExtra("Username", profileEmailAddress);
             this.startActivity(intentLogout);
         }
 
