@@ -5,17 +5,17 @@ package com.example.jonat.matchmeapp_groupproject;
  */
 
 public class MatchPoolClass {
-    public String matchPoolUsername, matchPoolActivity, matchPoolSlot, matchPoolDay, matchPoolMonth, matchPoolStatus;
+    public String matchPoolUsername, matchPoolActivity, matchPoolDay, matchPoolMonth, matchPoolSlot, matchPoolStatus;
 
     public MatchPoolClass() {
     }
 
-    public MatchPoolClass(String matchPoolUsername, String matchPoolActivity, String matchPoolSlot, String matchPoolDay, String matchPoolMonth, String matchPoolStatus) {
+    public MatchPoolClass(String matchPoolUsername, String matchPoolActivity, String matchPoolDay, String matchPoolMonth, String matchPoolSlot, String matchPoolStatus) {
         this.matchPoolUsername = matchPoolUsername;
         this.matchPoolActivity = matchPoolActivity;
-        this.matchPoolSlot = matchPoolSlot;
         this.matchPoolDay = matchPoolDay;
         this.matchPoolMonth = matchPoolMonth;
+        this.matchPoolSlot = matchPoolSlot;
         this.matchPoolStatus = matchPoolStatus;
     }
 

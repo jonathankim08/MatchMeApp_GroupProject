@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,25 +19,45 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class MyPotentialMatchesActivity extends Activity implements View.OnClickListener {
 
     private TextView AppTitle, PageTitle, FilterPrompt;
     private Spinner Filter;
-
     private ListView MyPotentialMatches;
+    private FirebaseAuth mAuth;
 
-    private int[] ProfilePictures = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
-    private String[] Names = {"Joe","Meghan","Aaron","Kate"};
-    private String[] Availabilities = {"9:00-10:00 AM", "10:00-11:00 AM", "2:00-3:00 PM", "6:00-7:00 PM"};
-    private String[] Locations = {"0.7 Miles Away", "0.1 Miles Away", "2.4 Miles Away", "1.5 Miles Away"};
-    private String[] SkillLevels = {"Intermediate", "Intermediate", "Beginner", "Advanced"};
+    ArrayList<String> list = new ArrayList<>();
+    ArrayAdapter<String> adapter;
+
+//    private int[] ProfilePictures = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
+//    private String[] Names = {"Joe","Meghan","Aaron","Kate"};
+//    private String[] Availabilities = {"9:00-10:00 AM", "10:00-11:00 AM", "2:00-3:00 PM", "6:00-7:00 PM"};
+//    private String[] Locations = {"0.7 Miles Away", "0.1 Miles Away", "2.4 Miles Away", "1.5 Miles Away"};
+//    private String[] SkillLevels = {"Intermediate", "Intermediate", "Beginner", "Advanced"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_potential_matches);
+
+        Intent intent = getIntent();
+        final String activity = intent.getStringExtra("Activity");
+        final String day = intent.getStringExtra("Day");
+        final String month = intent.getStringExtra("Month");
+        final String slot = intent.getStringExtra("Slot");
+        final String profileEmailAddress = intent.getStringExtra("Username");
 
         AppTitle = (TextView) findViewById(R.id.textViewAppTitle);
         PageTitle = (TextView) findViewById(R.id.textViewPageTitle);
@@ -44,56 +65,75 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         Filter = (Spinner) findViewById(R.id.spinnerFilter);
         MyPotentialMatches = (ListView) findViewById(R.id.listViewMyPotentialMatches);
 
-        CustomAdapter customAdapter = new CustomAdapter();
-        MyPotentialMatches.setAdapter(customAdapter);
-        
-        MyPotentialMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mAuth = FirebaseAuth.getInstance();
+
+//        CustomAdapter customAdapter = new CustomAdapter();
+//        MyPotentialMatches.setAdapter(customAdapter);
+
+        adapter = new ArrayAdapter<String>(this, R.layout.potentialmatcheslayout, R.id.textViewName, list);
+        MyPotentialMatches.setAdapter(adapter);
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final DatabaseReference matchPoolRef = db.getReference("MatchPool");
+
+        matchPoolRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+
+                }
+                MatchPoolClass findMatch = new MatchPoolClass();
+                findMatch = dataSnapshot.getValue(MatchPoolClass.class);
+                if (activity == findMatch.matchPoolActivity && day == findMatch.matchPoolDay && month == findMatch.matchPoolMonth && slot == findMatch.matchPoolSlot) {
+                    Toast.makeText(MyPotentialMatchesActivity.this, "MATCH", Toast.LENGTH_SHORT).show();
+                    list.add(0, findMatch.matchPoolUsername);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
     }
 
-    class CustomAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return Names.length;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-
-            view = getLayoutInflater().inflate(R.layout.potentialmatcheslayout, null);
-
-            ImageView ProfilePicture = view.findViewById(R.id.imageViewProfilePicture);
-            TextView Name = view.findViewById(R.id.textViewName);
-            TextView Availability = view.findViewById(R.id.textViewAvailability);
-            TextView Location = view.findViewById(R.id.textViewLocation);
-            TextView SkillLevel = view.findViewById(R.id.textViewSkillLevel);
-            Button Invite = view.findViewById(R.id.buttonInvite);
-            Button ViewProfile = view.findViewById(R.id.buttonViewProfile);
-
-            ProfilePicture.setImageResource(ProfilePictures[i]);
-            Name.setText(Names[i]);
-            Availability.setText(Availabilities[i]);
-            Location.setText(Locations[i]);
-            SkillLevel.setText(SkillLevels[i]);
-
-            return view;
-        }
-    }
+//    class CustomAdapter extends BaseAdapter {
+//
+//        @Override
+//        public int getCount() { return Names.length; }
+//
+//        @Override
+//        public Object getItem(int i) {
+//            return null;
+//        }
+//
+//        @Override
+//        public long getItemId(int i) {
+//            return 0;
+//        }
+//
+//        @Override
+//        public View getView(int i, View view, ViewGroup viewGroup) {
+//
+//            view = getLayoutInflater().inflate(R.layout.potentialmatcheslayout, null);
+//
+//            ImageView ProfilePicture = view.findViewById(R.id.imageViewProfilePicture);
+//            TextView Name = view.findViewById(R.id.textViewName);
+//            TextView Availability = view.findViewById(R.id.textViewAvailability);
+//            TextView Location = view.findViewById(R.id.textViewLocation);
+//            TextView SkillLevel = view.findViewById(R.id.textViewSkillLevel);
+//            Button Invite = view.findViewById(R.id.buttonInvite);
+//            Button ViewProfile = view.findViewById(R.id.buttonViewProfile);
+//
+//            ProfilePicture.setImageResource(ProfilePictures[i]);
+//            Name.setText(Names[i]);
+//            Availability.setText(Availabilities[i]);
+//            Location.setText(Locations[i]);
+//            SkillLevel.setText(SkillLevels[i]);
+//
+//            return view;
+//        }
+//    }
 
     @Override
     public void onClick(View view) {

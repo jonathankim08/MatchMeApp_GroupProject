@@ -37,8 +37,7 @@ public class HomepageActivity extends Activity {
     protected RadioButton chessRadioButton,tennisRadioButton;
     protected String activity, day, month;
     private String [] slots = {"8:00 am to 9:00 am", "9:00 am to 10:00 am", "10:00 am to 11:00 am", "11:00 am to 12:00 pm", "12:00 pm to 1:00 pm",
-            "1:00 pm to 2:00 pm", "2:00 pm to 3:00 pm", "3:00 pm to 4:00 pm",
-            "4:00 pm to 5:00 pm", "5:00 pm to 6:00 pm", "6:00 pm to 7:00 pm", "7:00 pm to 8:00 pm"};
+            "1:00 pm to 2:00 pm", "2:00 pm to 3:00 pm", "3:00 pm to 4:00 pm", "4:00 pm to 5:00 pm", "5:00 pm to 6:00 pm", "6:00 pm to 7:00 pm", "7:00 pm to 8:00 pm"};
     private FirebaseAuth mAuth;
 
     @Override
@@ -59,22 +58,23 @@ public class HomepageActivity extends Activity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        //List view code follows:
         CustomAdapter customadapter = new CustomAdapter();
         slotListView.setAdapter(customadapter);
 
         slotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String day = dateSpinner.getSelectedItem().toString();
-                String month = monthSpinner.getSelectedItem().toString();
+                day = dateSpinner.getSelectedItem().toString();
+                month = monthSpinner.getSelectedItem().toString();
 
                 if (chessRadioButton.isChecked()) {
                     activity = "chess";
                     addToDatabase(day, month, i);
+                    sendToPotential(activity, day, month, i);
                 } else if (tennisRadioButton.isChecked()) {
                     activity = "tennis";
                     addToDatabase(day, month, i);
+                    sendToPotential(activity, day, month, i);
                 } else if (!(tennisRadioButton.isChecked() && chessRadioButton.isChecked())) {
                     Toast.makeText(HomepageActivity.this, "Please select an activity!", Toast.LENGTH_SHORT).show();
                 }
@@ -131,8 +131,20 @@ public class HomepageActivity extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
+    private void sendToPotential(String activity, String day, String month, int i) {
+        Intent intent = getIntent();
+        String profileEmailAddress = intent.getStringExtra("Username");
 
+        Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
+        intentMyPotentialMatches.putExtra("Activity", activity);
+        intentMyPotentialMatches.putExtra("Day", day);
+        intentMyPotentialMatches.putExtra("Month", month);
+        intentMyPotentialMatches.putExtra("Slot", slots[i]);
+        intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
+        this.startActivity(intentMyPotentialMatches);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         Intent intent = getIntent();

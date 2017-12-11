@@ -53,7 +53,6 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
 
         mAuth = FirebaseAuth.getInstance();
 
-        //Initializing Firebase database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final DatabaseReference profileRef = db.getReference("Profiles");
 
