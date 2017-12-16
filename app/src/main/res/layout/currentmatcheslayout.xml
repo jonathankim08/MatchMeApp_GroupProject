@@ -50,9 +50,9 @@
         android:id="@+id/ivPicture"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/tvName"
+        android:layout_toLeftOf="@+id/tvGame"
+        android:layout_toStartOf="@+id/tvGame"
         android:src="@mipmap/ic_launcher" />
 
     <Button
