@@ -5,18 +5,21 @@ package com.example.jonat.matchmeapp_groupproject;
  */
 
 public class MatchPoolClass {
-    public String matchPoolUsername, matchPoolActivity, matchPoolDay, matchPoolMonth, matchPoolSlot, matchPoolStatus;
+    public String matchPoolUserId, matchPoolActivity, matchPoolDay, matchPoolMonth, matchPoolSlot, matchPoolStatus;
+
+    public String matchString;
 
     public MatchPoolClass() {
     }
 
-    public MatchPoolClass(String matchPoolUsername, String matchPoolActivity, String matchPoolDay, String matchPoolMonth, String matchPoolSlot, String matchPoolStatus) {
-        this.matchPoolUsername = matchPoolUsername;
+    public MatchPoolClass(String matchPoolUserId, String matchPoolActivity, String matchPoolDay, String matchPoolMonth, String matchPoolSlot, String matchPoolStatus) {
+        this.matchPoolUserId = matchPoolUserId;
         this.matchPoolActivity = matchPoolActivity;
         this.matchPoolDay = matchPoolDay;
         this.matchPoolMonth = matchPoolMonth;
         this.matchPoolSlot = matchPoolSlot;
         this.matchPoolStatus = matchPoolStatus;
+        this.matchString = matchPoolActivity+matchPoolDay+matchPoolMonth+matchPoolSlot;
     }
 
     //methods to update the status = Open/Invited/Scheduled, default being Open

@@ -22,4 +22,14 @@ public class InviteClass {
         this.inviteMonth = inviteMonth;
         this.inviteStatus = inviteStatus;
     }
+
+    public InviteClass(String inviteUsername, String inviteReceiver, MatchPoolClass matchPoolClass, String inviteStatus) {
+        this.inviteUsername = inviteUsername;
+        this.inviteReceiver = inviteReceiver;
+        this.inviteActivity = matchPoolClass.matchPoolActivity;
+        this.inviteSlot = matchPoolClass.matchPoolSlot;
+        this.inviteDay = matchPoolClass.matchPoolDay;
+        this.inviteMonth = matchPoolClass.matchPoolMonth;
+        this.inviteStatus = inviteStatus;
+    }
 }
