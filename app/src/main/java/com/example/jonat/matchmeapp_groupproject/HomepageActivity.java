@@ -83,10 +83,12 @@ public class HomepageActivity extends Activity {
             Intent intent = getIntent();
             final String profileEmailAddress = intent.getStringExtra("Username");
 
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
             FirebaseDatabase db = FirebaseDatabase.getInstance();
             final DatabaseReference matchPoolRef = db.getReference("MatchPool");
 
-            MatchPoolClass myMatchPool = new MatchPoolClass(profileEmailAddress, activity, day, month, slots[i],"Open");
+            MatchPoolClass myMatchPool = new MatchPoolClass(mAuth.getCurrentUser().getUid(), activity, day, month, slots[i],"Open");
             matchPoolRef.push().setValue(myMatchPool);
         }
 

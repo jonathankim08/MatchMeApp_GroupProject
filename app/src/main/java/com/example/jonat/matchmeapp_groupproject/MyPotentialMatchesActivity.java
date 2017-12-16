@@ -3,6 +3,7 @@ package com.example.jonat.matchmeapp_groupproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,9 +39,11 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
     private ListView MyPotentialMatches;
     private FirebaseAuth mAuth;
 
-//    ArrayList<String> list = new ArrayList<>();
+    ArrayList<MatchPoolClass> matchPoolList = new ArrayList<>();
 
     public int nbPotentialMatches;
+
+    FirebaseDatabase db = FirebaseDatabase.getInstance();
 
     private int[] ProfilePictures = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
     private String[] Names = {"Joe","Meghan","Aaron","Kate"};
@@ -66,16 +69,35 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         Filter = (Spinner) findViewById(R.id.spinnerFilter);
         MyPotentialMatches = (ListView) findViewById(R.id.listViewMyPotentialMatches);
 
-//        mAuth = FirebaseAuth.getInstance();
-
-        CustomAdapter customAdapter = new CustomAdapter();
-        MyPotentialMatches.setAdapter(customAdapter);
+        mAuth = FirebaseAuth.getInstance();
 
 //        adapter = new ArrayAdapter<String>(this, R.layout.potentialmatcheslayout, R.id.textViewName, list);
 //        MyPotentialMatches.setAdapter(adapter);
 
-//        FirebaseDatabase db = FirebaseDatabase.getInstance();
-//        final DatabaseReference matchPoolRef = db.getReference("MatchPool");
+        final DatabaseReference matchPoolRef = db.getReference("MatchPool");
+
+        matchPoolRef.orderByChild("matchString").equalTo(activity + day + month + slot).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot match : dataSnapshot.getChildren()){
+                    String userId = match.child("matchPoolUserId").getValue().toString();
+
+                    //skip the records for current user
+                    if (!userId.equals(mAuth.getCurrentUser().getUid()) ){
+                        MatchPoolClass matchPoolClass = match.getValue(MatchPoolClass.class);
+
+                        matchPoolList.add(matchPoolClass);
+                    }
+                }
+                CustomAdapter customAdapter = new CustomAdapter(matchPoolList);
+                MyPotentialMatches.setAdapter(customAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 //        matchPoolRef.addChildEventListener(new ChildEventListener() {
 //            @Override
@@ -111,9 +133,15 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
 
     class CustomAdapter extends BaseAdapter {
 
+        private ArrayList<MatchPoolClass> matchPoolList;
+
+        public CustomAdapter(ArrayList<MatchPoolClass> matchPoolList){
+            this.matchPoolList = matchPoolList;
+        }
+
         @Override
         public int getCount() {
-            return Names.length;
+            return matchPoolList.size();
         }
 
         @Override
@@ -127,7 +155,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
+        public View getView(final int position, View view, ViewGroup viewGroup) {
 
             view = getLayoutInflater().inflate(R.layout.potentialmatcheslayout, null);
 
@@ -136,14 +164,27 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             TextView Availability = view.findViewById(R.id.textViewAvailability);
             TextView Location = view.findViewById(R.id.textViewLocation);
             TextView SkillLevel = view.findViewById(R.id.textViewSkillLevel);
-            Button Invite = view.findViewById(R.id.buttonInvite);
+            final Button Invite = view.findViewById(R.id.buttonInvite);
+            Invite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(MyPotentialMatchesActivity.this, "You have invited " + matchPoolList.get(position).matchPoolUserId, Toast.LENGTH_SHORT).show();
+                    InviteClass inviteClass = new InviteClass(mAuth.getCurrentUser().getUid(), matchPoolList.get(position).matchPoolUserId, matchPoolList.get(position), "Open");
+
+                    DatabaseReference inviteRef = db.getReference("Invite");
+                    inviteRef.push().setValue(inviteClass);
+                    Invite.setText("Invited");
+                    Invite.setEnabled(false);
+                }
+            });
+
             Button ViewProfile = view.findViewById(R.id.buttonViewProfile);
 
-            ProfilePicture.setImageResource(ProfilePictures[i]);
-            Name.setText(Names[i]);
-            Availability.setText(Availabilities[i]);
-            Location.setText(Locations[i]);
-            SkillLevel.setText(SkillLevels[i]);
+            ProfilePicture.setImageResource(ProfilePictures[position]);
+            Name.setText(Names[position]);
+            Availability.setText(matchPoolList.get(position).matchPoolSlot);
+            Location.setText(Locations[position]);
+            SkillLevel.setText(SkillLevels[position]);
 
             return view;
         }
