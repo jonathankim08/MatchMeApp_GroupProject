@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
     private TextView tvTitle, tvPendingMatches, tvConfirmedMatches;
-    private ListView lvPendingMatches, lvConfirmedMatches;
+    private ListView lvPendingMatches, lvConfirmedMatches, lvCurrentMatches;
     private Button buttonSendChat;
 
     private String[] NAMES  = {"Joe","Arjun"};
@@ -43,8 +43,10 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         tvTitle = findViewById(R.id.tvTitle);
         tvPendingMatches = findViewById(R.id.tvPendingMatches);
         tvConfirmedMatches = findViewById(R.id.tvConfirmedMatches);
+
         lvPendingMatches = findViewById(R.id.lvPendingMatches);
         lvConfirmedMatches = findViewById(R.id.lvConfirmedMatches);
+        //lvCurrentMatches = findViewById(R.id.lvConfirmedMatches);
 
         buttonSendChat = findViewById(R.id.buttonSendChat);
         buttonSendChat.setOnClickListener(this);
