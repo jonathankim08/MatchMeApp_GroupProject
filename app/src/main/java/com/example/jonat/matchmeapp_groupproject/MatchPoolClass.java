@@ -23,13 +23,11 @@ public class MatchPoolClass {
         this.matchPoolStatus = matchPoolStatus;
         this.matchString = matchPoolActivity+matchPoolDay+matchPoolMonth+matchPoolSlot;
         this.matchDuplicateSlot = matchPoolUserId + matchPoolActivity+matchPoolDay+matchPoolMonth+matchPoolSlot;
-
         this.matchPoolProfileName = matchPoolProfileName;
         this.matchPoolProfileTennisLevel = matchPoolProfileTennisLevel;
         this.matchPoolProfileChessLevel = matchPoolProfileChessLevel;
         this.matchPoolProfileLatitude = matchPoolProfileLatitude;
         this.matchPoolProfileLongitude = matchPoolProfileLongitude;
-
     }
 
     //methods to update the status = Open/Invited/Scheduled, default being Open

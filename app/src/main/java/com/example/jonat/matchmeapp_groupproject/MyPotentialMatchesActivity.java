@@ -2,6 +2,7 @@ package com.example.jonat.matchmeapp_groupproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.constraint.solver.ArrayLinkedVariables;
@@ -41,18 +42,13 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
     private TextView AppTitle, PageTitle, FilterPrompt;
     private Spinner Filter;
     private ListView MyPotentialMatches;
-    public int nbPotentialMatches;
     private FirebaseAuth mAuth;
+    public double[] latLong = new double[2];
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     ArrayList<MatchPoolClass> matchPoolList = new ArrayList<>();
 
     private int[] ProfilePictures = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
-/*    private String[] Names = {"Joe","Meghan","Aaron","Kate"};
-    private String[] Availabilities = {"9:00-10:00 AM", "10:00-11:00 AM", "2:00-3:00 PM", "6:00-7:00 PM"};
-    private String[] Locations = {"0.7 Miles Away", "0.1 Miles Away", "2.4 Miles Away", "1.5 Miles Away"};
-    private String[] SkillLevels = {"Intermediate", "Intermediate", "Beginner", "Advanced"};
-*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +71,49 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         mAuth = FirebaseAuth.getInstance();
 
         final DatabaseReference matchPoolRef = db.getReference("MatchPool");
+        final DatabaseReference profileRef = db.getReference("Profiles");
 
-        matchPoolRef.orderByChild("matchString").equalTo(activity + day + month + slot).addValueEventListener(new ValueEventListener() {
+        profileRef.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                profileRef.child(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        ProfileClass findProfile = new ProfileClass();
+                        findProfile = dataSnapshot.getValue(ProfileClass.class);
+                        latLong[0] = findProfile.profileLatitude;
+                        latLong[1] = findProfile.profileLongitude;
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        matchPoolRef.orderByChild("matchString").equalTo(activity + day + month + slot).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot match : dataSnapshot.getChildren()){
@@ -148,17 +185,24 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             });
 
             Button ViewProfile = view.findViewById(R.id.buttonViewProfile);
+            Location locationA = new Location("pointA");
+            locationA.setLatitude(latLong[0]);
+            locationA.setLongitude(latLong[1]);
+            Location locationB = new Location("pointB");
+            locationB.setLatitude(matchPoolList.get(position).matchPoolProfileLatitude);
+            locationB.setLongitude(matchPoolList.get(position).matchPoolProfileLongitude);
+
+            String distance = String.format("%.2f", locationA.distanceTo(locationB) / 5280);
 
             ProfilePicture.setImageResource(ProfilePictures[position]);
             Name.setText(matchPoolList.get(position).matchPoolProfileName);
             Availability.setText(matchPoolList.get(position).matchPoolSlot);
-            Location.setText("miles away");
+            Location.setText(distance + " Miles Away");
             if (matchPoolList.get(position).matchPoolActivity == "tennis"){
                 SkillLevel.setText(matchPoolList.get(position).matchPoolProfileTennisLevel);
             } else {
                 SkillLevel.setText(matchPoolList.get(position).matchPoolProfileChessLevel);
             }
-
 
             return view;
         }

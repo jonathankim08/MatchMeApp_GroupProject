@@ -80,9 +80,6 @@ public class HomepageActivity extends Activity {
         }
 
         private void addToDatabase(String day, String month, int i) {
-            Intent intent = getIntent();
-            final String profileEmailAddress = intent.getStringExtra("Username");
-
             final String tempDay = day;
             final String tempMonth = month;
             final int tempI = i;
@@ -92,7 +89,7 @@ public class HomepageActivity extends Activity {
             final DatabaseReference matchPoolRef = db.getReference("MatchPool");
             final DatabaseReference profileRef = db.getReference("Profiles");
 
-            profileRef.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            profileRef.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     profileRef.child(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
@@ -111,17 +108,15 @@ public class HomepageActivity extends Activity {
                             tempProfileLatitude = profileClass.profileLatitude;
                             tempProfileLongitude = profileClass.profileLongitude;
 
+                            final MatchPoolClass myMatchPool = new MatchPoolClass(mAuth.getCurrentUser().getUid(), activity, tempDay, tempMonth, slots[tempI],"Open", tempProfileName, tempProfileChessLevel, tempProfileTennisLevel, tempProfileLatitude, tempProfileLongitude);
 
-                            //Toast.makeText(HomepageActivity.this, tempProfileName + "_"+ tempMonth, Toast.LENGTH_SHORT).show();
-                            final MatchPoolClass myMatchPool = new MatchPoolClass(mAuth.getCurrentUser().getUid(), activity, tempDay, tempMonth, slots[tempI],"Open",tempProfileName, tempProfileChessLevel, tempProfileTennisLevel, tempProfileLatitude, tempProfileLongitude);
-
-                            matchPoolRef.orderByChild("matchDuplicateSlot").equalTo(mAuth.getCurrentUser().getUid()+ activity + tempDay + tempMonth + slots[tempI]).addValueEventListener(new ValueEventListener() {
+                            matchPoolRef.orderByChild("matchDuplicateSlot").equalTo(mAuth.getCurrentUser().getUid()+ activity + tempDay + tempMonth + slots[tempI]).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.getValue() == null){
                                         matchPoolRef.push().setValue(myMatchPool);
-                                    }else {
-                                        Toast.makeText(HomepageActivity.this, "slot already exists", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(HomepageActivity.this, "The chosen slot already exists", Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
@@ -160,10 +155,6 @@ public class HomepageActivity extends Activity {
 
                 }
             });
-
-
-
-
         }
 
     class CustomAdapter extends BaseAdapter {
@@ -192,7 +183,6 @@ public class HomepageActivity extends Activity {
             textViewSlot.setText(slots[i]);
 
             return view;
-
         }
     }
 
@@ -208,12 +198,13 @@ public class HomepageActivity extends Activity {
         Intent intent = getIntent();
         String profileEmailAddress = intent.getStringExtra("Username");
 
-        Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
+        Intent intentMyPotentialMatches = new Intent(this, MyPotentialMatchesActivity.class);
         intentMyPotentialMatches.putExtra("Activity", activity);
         intentMyPotentialMatches.putExtra("Day", day);
         intentMyPotentialMatches.putExtra("Month", month);
         intentMyPotentialMatches.putExtra("Slot", slots[i]);
         intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
+
         this.startActivity(intentMyPotentialMatches);
     }
 
