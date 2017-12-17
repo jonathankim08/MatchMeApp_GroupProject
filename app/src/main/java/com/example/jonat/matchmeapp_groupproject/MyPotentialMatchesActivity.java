@@ -161,7 +161,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         }
 
         @Override
-        public View getView(final int position, View view, ViewGroup viewGroup) {
+        public View getView(final int position, View view, final ViewGroup viewGroup) {
 
             view = getLayoutInflater().inflate(R.layout.potentialmatcheslayout, null);
 
@@ -190,6 +190,9 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             ViewProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent otherUsers = new Intent(viewGroup.getContext(), OtherUsersProfiles.class);
+                    otherUsers.putExtra("otherProfileId", matchPoolList.get(position).matchPoolUserId);
+                    viewGroup.getContext().startActivity(otherUsers);
                 }
             });
 
@@ -221,6 +224,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mainMenuInflater = getMenuInflater();
@@ -231,33 +235,23 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        Intent intent = getIntent();
-        String profileEmailAddress = intent.getStringExtra("Username");
-
         if (item.getItemId() == R.id.homeMenu){
-            Intent intentHome = new Intent(this,HomepageActivity.class);
-            intentHome.putExtra("Username", profileEmailAddress);
+            Intent intentHome = new Intent(this, HomepageActivity.class);
             this.startActivity(intentHome);
         } else if(item.getItemId() == R.id.myPotentialMatchesMenu){
-            Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
-            intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
+            Intent intentMyPotentialMatches = new Intent(this, MyPotentialMatchesActivity.class);
             this.startActivity(intentMyPotentialMatches);
         } else if(item.getItemId() == R.id.myMatchesMenu){
-            Intent intentMyMatches = new Intent(this,MyMatchesActivity.class);
-            intentMyMatches.putExtra("Username", profileEmailAddress);
+            Intent intentMyMatches = new Intent(this, MyMatchesActivity.class);
             this.startActivity(intentMyMatches);
         } else if (item.getItemId() == R.id.chatMenu){
-            Intent intentChat = new Intent(this,ChatActivity.class);
-            intentChat.putExtra("Username", profileEmailAddress);
+            Intent intentChat = new Intent(this, ChatActivity.class);
             this.startActivity(intentChat);
         } else if (item.getItemId() == R.id.profileMenu){
-            Intent intentProfile = new Intent(this,ProfileActivity.class);
-            intentProfile.putExtra("Username", profileEmailAddress);
+            Intent intentProfile = new Intent(this, ProfileActivity.class);
             this.startActivity(intentProfile);
         } else if (item.getItemId() == R.id.logoutMenu){
-            Intent intentLogout = new Intent(this,MainActivity.class);
-            intentLogout.putExtra("Username", profileEmailAddress);
+            Intent intentLogout = new Intent(this, MainActivity.class);
             this.startActivity(intentLogout);
         }
 

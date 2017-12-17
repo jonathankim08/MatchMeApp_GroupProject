@@ -67,7 +67,6 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        //Initializing Firebase database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final DatabaseReference profileRef = db.getReference("Profiles");
 
