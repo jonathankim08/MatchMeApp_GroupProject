@@ -2,7 +2,9 @@ package com.example.jonat.matchmeapp_groupproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.support.constraint.solver.ArrayLinkedVariables;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,24 +34,25 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+
 public class MyPotentialMatchesActivity extends Activity implements View.OnClickListener {
 
     private TextView AppTitle, PageTitle, FilterPrompt;
     private Spinner Filter;
     private ListView MyPotentialMatches;
+    public int nbPotentialMatches;
     private FirebaseAuth mAuth;
 
+    FirebaseDatabase db = FirebaseDatabase.getInstance();
     ArrayList<MatchPoolClass> matchPoolList = new ArrayList<>();
 
-    public int nbPotentialMatches;
-
-    FirebaseDatabase db = FirebaseDatabase.getInstance();
-
     private int[] ProfilePictures = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
-    private String[] Names = {"Joe","Meghan","Aaron","Kate"};
+/*    private String[] Names = {"Joe","Meghan","Aaron","Kate"};
     private String[] Availabilities = {"9:00-10:00 AM", "10:00-11:00 AM", "2:00-3:00 PM", "6:00-7:00 PM"};
     private String[] Locations = {"0.7 Miles Away", "0.1 Miles Away", "2.4 Miles Away", "1.5 Miles Away"};
     private String[] SkillLevels = {"Intermediate", "Intermediate", "Beginner", "Advanced"};
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,21 +74,17 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
 
         mAuth = FirebaseAuth.getInstance();
 
-//        adapter = new ArrayAdapter<String>(this, R.layout.potentialmatcheslayout, R.id.textViewName, list);
-//        MyPotentialMatches.setAdapter(adapter);
-
         final DatabaseReference matchPoolRef = db.getReference("MatchPool");
 
         matchPoolRef.orderByChild("matchString").equalTo(activity + day + month + slot).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot match : dataSnapshot.getChildren()){
-                    String userId = match.child("matchPoolUserId").getValue().toString();
+                   final String userId = match.child("matchPoolUserId").getValue().toString();
 
                     //skip the records for current user
                     if (!userId.equals(mAuth.getCurrentUser().getUid()) ){
                         MatchPoolClass matchPoolClass = match.getValue(MatchPoolClass.class);
-
                         matchPoolList.add(matchPoolClass);
                     }
                 }
@@ -99,36 +98,6 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             }
         });
 
-//        matchPoolRef.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                MatchPoolClass findMatch = dataSnapshot.getValue(MatchPoolClass.class);
-//                if (activity == findMatch.matchPoolActivity && day == findMatch.matchPoolDay && month == findMatch.matchPoolMonth && slot == findMatch.matchPoolSlot) {
-//                    Toast.makeText(MyPotentialMatchesActivity.this, "MATCH", Toast.LENGTH_SHORT).show();
-//                    list.add(0, findMatch.matchPoolUsername);
-//                }
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
     }
 
     class CustomAdapter extends BaseAdapter {
@@ -168,7 +137,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             Invite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(MyPotentialMatchesActivity.this, "You have invited " + matchPoolList.get(position).matchPoolUserId, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPotentialMatchesActivity.this, "You have invited " + matchPoolList.get(position).matchPoolProfileName, Toast.LENGTH_SHORT).show();
                     InviteClass inviteClass = new InviteClass(mAuth.getCurrentUser().getUid(), matchPoolList.get(position).matchPoolUserId, matchPoolList.get(position), "Open");
 
                     DatabaseReference inviteRef = db.getReference("Invite");
@@ -181,10 +150,15 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             Button ViewProfile = view.findViewById(R.id.buttonViewProfile);
 
             ProfilePicture.setImageResource(ProfilePictures[position]);
-            Name.setText(Names[position]);
+            Name.setText(matchPoolList.get(position).matchPoolProfileName);
             Availability.setText(matchPoolList.get(position).matchPoolSlot);
-            Location.setText(Locations[position]);
-            SkillLevel.setText(SkillLevels[position]);
+            Location.setText("miles away");
+            if (matchPoolList.get(position).matchPoolActivity == "tennis"){
+                SkillLevel.setText(matchPoolList.get(position).matchPoolProfileTennisLevel);
+            } else {
+                SkillLevel.setText(matchPoolList.get(position).matchPoolProfileChessLevel);
+            }
+
 
             return view;
         }

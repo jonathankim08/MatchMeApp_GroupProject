@@ -68,6 +68,7 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             ProfileClass findProfile = new ProfileClass();
                             findProfile = dataSnapshot.getValue(ProfileClass.class);
+
                             textViewNameValue.setText(findProfile.profileName);
                             textViewAgeValue.setText(findProfile.profileAge);
                             textViewLocationValue.setText(findProfile.profileLocation);
