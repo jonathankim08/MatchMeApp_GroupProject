@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tvName"
@@ -61,12 +61,29 @@
         android:id="@+id/buttonSendChat"
         android:layout_width="100dp"
         android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/tvGame"
-        android:layout_marginLeft="61dp"
-        android:layout_marginStart="61dp"
-        android:layout_toEndOf="@+id/tvGame"
-        android:layout_toRightOf="@+id/tvGame"
         android:text="Send Chat"
         android:textSize="14dp" />
 
+    <Button
+        android:id="@+id/buttonAccept"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/tvGame"
+        android:layout_toLeftOf="@+id/buttonSendChat"
+        android:layout_toStartOf="@+id/buttonSendChat"
+        android:text="Accept"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/buttonDecline"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/ivPicture"
+        android:layout_toLeftOf="@+id/buttonSendChat"
+        android:layout_toStartOf="@+id/buttonSendChat"
+        android:text="Decline"
+        android:textSize="14sp" />
 </RelativeLayout>

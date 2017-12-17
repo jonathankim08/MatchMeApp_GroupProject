@@ -43,12 +43,13 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
     private Spinner Filter;
     private ListView MyPotentialMatches;
     private FirebaseAuth mAuth;
-    public double[] latLong = new double[2];
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     ArrayList<MatchPoolClass> matchPoolList = new ArrayList<>();
 
     private int[] ProfilePictures = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
+    public double[] latLong = new double[2];
+    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
                         findProfile = dataSnapshot.getValue(ProfileClass.class);
                         latLong[0] = findProfile.profileLatitude;
                         latLong[1] = findProfile.profileLongitude;
+                        username = findProfile.profileName;
                     }
 
                     @Override
@@ -146,9 +148,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         }
 
         @Override
-        public int getCount() {
-            return matchPoolList.size();
-        }
+        public int getCount() { return matchPoolList.size(); }
 
         @Override
         public Object getItem(int i) {
@@ -170,14 +170,15 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             TextView Availability = view.findViewById(R.id.textViewAvailability);
             TextView Location = view.findViewById(R.id.textViewLocation);
             TextView SkillLevel = view.findViewById(R.id.textViewSkillLevel);
+
+            final DatabaseReference inviteRef = db.getReference("Invites");
+
             final Button Invite = view.findViewById(R.id.buttonInvite);
             Invite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(MyPotentialMatchesActivity.this, "You have invited " + matchPoolList.get(position).matchPoolProfileName + "!", Toast.LENGTH_SHORT).show();
-                    InviteClass inviteClass = new InviteClass(mAuth.getCurrentUser().getUid(), matchPoolList.get(position).matchPoolUserId, matchPoolList.get(position).matchPoolActivity, matchPoolList.get(position).matchPoolSlot, matchPoolList.get(position).matchPoolDay, matchPoolList.get(position).matchPoolMonth, "Open");
-
-                    DatabaseReference inviteRef = db.getReference("Invite");
+                    InviteClass inviteClass = new InviteClass(mAuth.getCurrentUser().getUid(), matchPoolList.get(position).matchPoolUserId, username, matchPoolList.get(position).matchPoolProfileName, matchPoolList.get(position).matchPoolActivity, matchPoolList.get(position).matchPoolSlot, matchPoolList.get(position).matchPoolDay, matchPoolList.get(position).matchPoolMonth, "Open", latLong[0], latLong[1], matchPoolList.get(position).matchPoolProfileLatitude, matchPoolList.get(position).matchPoolProfileLongitude);
                     inviteRef.push().setValue(inviteClass);
                     Invite.setText("Invited");
                     Invite.setEnabled(false);
@@ -185,6 +186,13 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             });
 
             Button ViewProfile = view.findViewById(R.id.buttonViewProfile);
+
+            ViewProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                }
+            });
+
             Location locationA = new Location("pointA");
             locationA.setLatitude(latLong[0]);
             locationA.setLongitude(latLong[1]);
@@ -198,7 +206,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             Name.setText(matchPoolList.get(position).matchPoolProfileName);
             Availability.setText(matchPoolList.get(position).matchPoolSlot);
             Location.setText(distance + " Miles Away");
-            if (matchPoolList.get(position).matchPoolActivity == "tennis"){
+            if (matchPoolList.get(position).matchPoolActivity == "Tennis"){
                 SkillLevel.setText(matchPoolList.get(position).matchPoolProfileTennisLevel);
             } else {
                 SkillLevel.setText(matchPoolList.get(position).matchPoolProfileChessLevel);

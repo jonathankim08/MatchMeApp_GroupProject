@@ -65,11 +65,11 @@ public class HomepageActivity extends Activity {
                 month = monthSpinner.getSelectedItem().toString();
 
                 if (chessRadioButton.isChecked()) {
-                    activity = "chess";
+                    activity = "Chess";
                     addToDatabase(day, month, i);
                     sendToPotential(activity, day, month, i);
                 } else if (tennisRadioButton.isChecked()) {
-                    activity = "tennis";
+                    activity = "Tennis";
                     addToDatabase(day, month, i);
                     sendToPotential(activity, day, month, i);
                 } else if (!(tennisRadioButton.isChecked() && chessRadioButton.isChecked())) {
