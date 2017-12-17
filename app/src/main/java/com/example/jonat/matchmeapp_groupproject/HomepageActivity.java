@@ -83,13 +83,87 @@ public class HomepageActivity extends Activity {
             Intent intent = getIntent();
             final String profileEmailAddress = intent.getStringExtra("Username");
 
-            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            final String tempDay = day;
+            final String tempMonth = month;
+            final int tempI = i;
 
+            final FirebaseAuth mAuth = FirebaseAuth.getInstance();
             FirebaseDatabase db = FirebaseDatabase.getInstance();
             final DatabaseReference matchPoolRef = db.getReference("MatchPool");
+            final DatabaseReference profileRef = db.getReference("Profiles");
 
-            MatchPoolClass myMatchPool = new MatchPoolClass(mAuth.getCurrentUser().getUid(), activity, day, month, slots[i],"Open");
-            matchPoolRef.push().setValue(myMatchPool);
+            profileRef.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    profileRef.child(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                            final String tempProfileName, tempProfileChessLevel, tempProfileTennisLevel;
+                            final double tempProfileLatitude, tempProfileLongitude;
+
+                            ProfileClass profileClass = new ProfileClass();
+                            profileClass = dataSnapshot.getValue(ProfileClass.class);
+
+                            tempProfileName = profileClass.profileName;
+                            tempProfileChessLevel = profileClass.profileChessLevel;
+                            tempProfileTennisLevel = profileClass.profileTennisLevel;
+                            tempProfileLatitude = profileClass.profileLatitude;
+                            tempProfileLongitude = profileClass.profileLongitude;
+
+
+                            //Toast.makeText(HomepageActivity.this, tempProfileName + "_"+ tempMonth, Toast.LENGTH_SHORT).show();
+                            final MatchPoolClass myMatchPool = new MatchPoolClass(mAuth.getCurrentUser().getUid(), activity, tempDay, tempMonth, slots[tempI],"Open",tempProfileName, tempProfileChessLevel, tempProfileTennisLevel, tempProfileLatitude, tempProfileLongitude);
+
+                            matchPoolRef.orderByChild("matchDuplicateSlot").equalTo(mAuth.getCurrentUser().getUid()+ activity + tempDay + tempMonth + slots[tempI]).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.getValue() == null){
+                                        matchPoolRef.push().setValue(myMatchPool);
+                                    }else {
+                                        Toast.makeText(HomepageActivity.this, "slot already exists", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+
+
         }
 
     class CustomAdapter extends BaseAdapter {

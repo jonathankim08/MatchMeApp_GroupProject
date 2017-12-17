@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -95,7 +96,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
                 profileLongitude = addresses.get(0).getLongitude();
             }
 
-            ProfileClass myProfile = new ProfileClass(profileEmailAddress, profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel, profileLatitude, profileLongitude);
+            ProfileClass myProfile = new ProfileClass(mAuth.getCurrentUser().getUid(), profileEmailAddress, profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel, profileLatitude, profileLongitude);
             profileRef.child(mAuth.getCurrentUser().getUid()).push().setValue(myProfile);
 
             Intent intentHome = new Intent(this, HomepageActivity.class);
