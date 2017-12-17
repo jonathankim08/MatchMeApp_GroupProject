@@ -116,7 +116,7 @@ public class HomepageActivity extends Activity {
                                     if (dataSnapshot.getValue() == null){
                                         matchPoolRef.push().setValue(myMatchPool);
                                     } else {
-                                        Toast.makeText(HomepageActivity.this, "The chosen slot already exists", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(HomepageActivity.this, "The chosen slot already exists!", Toast.LENGTH_SHORT).show();
                                     }
                                 }
 

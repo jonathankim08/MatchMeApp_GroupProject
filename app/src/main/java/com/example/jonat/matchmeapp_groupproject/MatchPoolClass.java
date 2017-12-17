@@ -1,9 +1,5 @@
 package com.example.jonat.matchmeapp_groupproject;
 
-/**
- * Created by neilsk on 12/10/17.
- */
-
 public class MatchPoolClass {
     public String matchPoolUserId, matchPoolActivity, matchPoolDay, matchPoolMonth, matchPoolSlot, matchPoolStatus;
     public String matchString, matchDuplicateSlot;
@@ -30,7 +26,6 @@ public class MatchPoolClass {
         this.matchPoolProfileLongitude = matchPoolProfileLongitude;
     }
 
-    //methods to update the status = Open/Invited/Scheduled, default being Open
     public void UpdateStatustoInvited(String inviteUsername)
     {
         this.matchPoolStatus = "Invited";

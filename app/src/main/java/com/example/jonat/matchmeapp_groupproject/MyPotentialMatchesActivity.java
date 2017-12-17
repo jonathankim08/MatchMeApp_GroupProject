@@ -174,7 +174,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             Invite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(MyPotentialMatchesActivity.this, "You have invited " + matchPoolList.get(position).matchPoolProfileName, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPotentialMatchesActivity.this, "You have invited " + matchPoolList.get(position).matchPoolProfileName + "!", Toast.LENGTH_SHORT).show();
                     InviteClass inviteClass = new InviteClass(mAuth.getCurrentUser().getUid(), matchPoolList.get(position).matchPoolUserId, matchPoolList.get(position), "Open");
 
                     DatabaseReference inviteRef = db.getReference("Invite");
