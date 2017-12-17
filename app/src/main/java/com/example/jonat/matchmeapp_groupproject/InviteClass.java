@@ -7,7 +7,7 @@ public class InviteClass {
     public InviteClass() {
     }
 
-    public InviteClass(String inviteUsername, String inviteReceiver, String inviteActivity, String inviteDay, String inviteMonth, String inviteSlot, String inviteStatus) {
+    public InviteClass(String inviteUsername, String inviteReceiver, String inviteActivity, String inviteSlot, String inviteDay, String inviteMonth,  String inviteStatus) {
         this.inviteUsername = inviteUsername;
         this.inviteReceiver = inviteReceiver;
         this.inviteActivity = inviteActivity;

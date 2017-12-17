@@ -175,7 +175,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(MyPotentialMatchesActivity.this, "You have invited " + matchPoolList.get(position).matchPoolProfileName + "!", Toast.LENGTH_SHORT).show();
-                    InviteClass inviteClass = new InviteClass(mAuth.getCurrentUser().getUid(), matchPoolList.get(position).matchPoolUserId, matchPoolList.get(position), "Open");
+                    InviteClass inviteClass = new InviteClass(mAuth.getCurrentUser().getUid(), matchPoolList.get(position).matchPoolUserId, matchPoolList.get(position).matchPoolActivity, matchPoolList.get(position).matchPoolSlot, matchPoolList.get(position).matchPoolDay, matchPoolList.get(position).matchPoolMonth, "Open");
 
                     DatabaseReference inviteRef = db.getReference("Invite");
                     inviteRef.push().setValue(inviteClass);
@@ -192,7 +192,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             locationB.setLatitude(matchPoolList.get(position).matchPoolProfileLatitude);
             locationB.setLongitude(matchPoolList.get(position).matchPoolProfileLongitude);
 
-            String distance = String.format("%.2f", locationA.distanceTo(locationB) / 5280);
+            float distance = locationA.distanceTo(locationB) / 5280;
 
             ProfilePicture.setImageResource(ProfilePictures[position]);
             Name.setText(matchPoolList.get(position).matchPoolProfileName);
