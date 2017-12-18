@@ -121,10 +121,11 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
                 for (DataSnapshot match : dataSnapshot.getChildren()){
                    final String userId = match.child("matchPoolUserId").getValue().toString();
 
-                    //skip the records for current user
                     if (!userId.equals(mAuth.getCurrentUser().getUid()) ){
                         MatchPoolClass matchPoolClass = match.getValue(MatchPoolClass.class);
-                        matchPoolList.add(matchPoolClass);
+                        if (matchPoolClass.matchPoolStatus.equals("Open")) {
+                            matchPoolList.add(matchPoolClass);
+                        }
                     }
                 }
                 CustomAdapter customAdapter = new CustomAdapter(matchPoolList);

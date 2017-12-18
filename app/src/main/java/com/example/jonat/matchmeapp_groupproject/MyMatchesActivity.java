@@ -36,9 +36,9 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     ArrayList<InviteClass> inviteListReceived = new ArrayList<>();
     ArrayList<InviteClass> inviteListSent = new ArrayList<>();
+    ArrayList<InviteClass> inviteListConfirmed = new ArrayList<>();      ;
 
     private int[] ProfilePictures = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
-    public double[] latLong = new double[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,8 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
                     InviteClass inviteClass = inviteReceived.getValue(InviteClass.class);
                     if (inviteClass.inviteStatus.equals("Open")) {
                         inviteListReceived.add(inviteClass);
+                    } else {
+                        inviteListConfirmed.add(inviteClass);
                     }
                 }
                 CustomAdapter1 customAdapter1 = new CustomAdapter1(inviteListReceived);
@@ -82,7 +84,11 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot inviteSent : dataSnapshot.getChildren()){
                     InviteClass inviteClass = inviteSent.getValue(InviteClass.class);
-                    inviteListSent.add(inviteClass);
+                    if (inviteClass.inviteStatus.equals("Open")) {
+                        inviteListSent.add(inviteClass);
+                    } else {
+                        inviteListConfirmed.add(inviteClass);
+                    }
                 }
                 CustomAdapter2 customAdapter2 = new CustomAdapter2(inviteListSent);
                 lvPendingMatchesSent.setAdapter(customAdapter2);
@@ -94,8 +100,8 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             }
         });
 
-//        CustomAdapter3 customAdapter3 = new CustomAdapter3();
-//        lvConfirmedMatches.setAdapter(customAdapter3);
+        CustomAdapter3 customAdapter3 = new CustomAdapter3(inviteListConfirmed);
+        lvConfirmedMatches.setAdapter(customAdapter3);
 
         lvPendingMatchesReceived.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -131,16 +137,19 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         public int getCount() {
             return inviteListReceived.size();
         }
+
         @Override
         public Object getItem(int i) {
             return null;
         }
+
         @Override
         public long getItemId(int i) {
             return 0;
         }
+
         @Override
-        public View getView(final int position, View view, ViewGroup viewGroup) {
+        public View getView(final int position, View view, final ViewGroup viewGroup) {
 
             view = getLayoutInflater().inflate(R.layout.pendingmatcheslayout,null);
 
@@ -170,15 +179,16 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             Accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     final DatabaseReference inviteRef = db.getReference("Invites");
                     final DatabaseReference matchPoolRef = db.getReference("MatchPool");
+
                     inviteRef.orderByChild("inviteSenderReceiverCheck").equalTo(inviteListReceived.get(position).inviteSender + inviteListReceived.get(position).inviteReceiver + inviteListReceived.get(position).inviteActivity + inviteListReceived.get(position).inviteDay + inviteListReceived.get(position).inviteMonth + inviteListReceived.get(position).inviteSlot).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot inviteReceived) {
-                            inviteRef.addChildEventListener(new ChildEventListener() {
+                            inviteRef.orderByChild("inviteSenderReceiverCheck").equalTo(inviteListReceived.get(position).inviteSender + inviteListReceived.get(position).inviteReceiver + inviteListReceived.get(position).inviteActivity + inviteListReceived.get(position).inviteDay + inviteListReceived.get(position).inviteMonth + inviteListReceived.get(position).inviteSlot).addChildEventListener(new ChildEventListener() {
                                 @Override
                                 public void onChildAdded(DataSnapshot inviteReceived, String s) {
-                                    //inviteReceived.getRef().child("inviteStatus").setValue("Matches").toString();
                                     String inviteKey = inviteReceived.getKey();
                                     inviteRef.child(inviteKey).child("inviteStatus").setValue("Matched");
                                 }
@@ -209,10 +219,36 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
                         }
                     });
-                    matchPoolRef.orderByChild("MatchPoolUserId").equalTo(inviteListReceived.get(position).inviteSender).addListenerForSingleValueEvent(new ValueEventListener() {
+                    matchPoolRef.orderByChild("matchDuplicateSlot").equalTo(inviteListReceived.get(position).inviteSender + inviteListReceived.get(position).inviteActivity + inviteListReceived.get(position).inviteDay + inviteListReceived.get(position).inviteMonth + inviteListReceived.get(position).inviteSlot).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(DataSnapshot matchPoolUpdateReceived) {
+                            matchPoolRef.orderByChild("matchDuplicateSlot").equalTo(inviteListReceived.get(position).inviteSender + inviteListReceived.get(position).inviteActivity + inviteListReceived.get(position).inviteDay + inviteListReceived.get(position).inviteMonth + inviteListReceived.get(position).inviteSlot).addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot matchPoolUpdateReceived, String s) {
+                                    String matchPoolKey = matchPoolUpdateReceived.getKey();
+                                    matchPoolRef.child(matchPoolKey).child("matchPoolStatus").setValue("Closed");
+                                }
 
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                }
+
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                         }
 
                         @Override
@@ -220,8 +256,105 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
                         }
                     });
-                }
 
+                    matchPoolRef.orderByChild("matchDuplicateSlot").equalTo(inviteListReceived.get(position).inviteReceiver + inviteListReceived.get(position).inviteActivity + inviteListReceived.get(position).inviteDay + inviteListReceived.get(position).inviteMonth + inviteListReceived.get(position).inviteSlot).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot matchPoolUpdateReceived) {
+                            matchPoolRef.orderByChild("matchDuplicateSlot").equalTo(inviteListReceived.get(position).inviteActivity + inviteListReceived.get(position).inviteDay + inviteListReceived.get(position).inviteMonth + inviteListReceived.get(position).inviteSlot).addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot matchPoolUpdateReceived, String s) {
+                                    String matchPoolKey = matchPoolUpdateReceived.getKey();
+                                    matchPoolRef.child(matchPoolKey).child("matchPoolStatus").setValue("Closed");
+                                }
+
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                }
+
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    Accept.setText("Accepted");
+                    Accept.setEnabled(false);
+                }
+            });
+
+            final Button Decline = view.findViewById(R.id.buttonDecline);
+
+            Decline.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+
+                    final DatabaseReference inviteRef = db.getReference("Invites");
+
+                    inviteRef.orderByChild("inviteSenderReceiverCheck").equalTo(inviteListReceived.get(position).inviteSender + inviteListReceived.get(position).inviteReceiver + inviteListReceived.get(position).inviteActivity + inviteListReceived.get(position).inviteDay + inviteListReceived.get(position).inviteMonth + inviteListReceived.get(position).inviteSlot).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot inviteReceived) {
+                            inviteRef.orderByChild("inviteSenderReceiverCheck").equalTo(inviteListReceived.get(position).inviteSender + inviteListReceived.get(position).inviteReceiver + inviteListReceived.get(position).inviteActivity + inviteListReceived.get(position).inviteDay + inviteListReceived.get(position).inviteMonth + inviteListReceived.get(position).inviteSlot).addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot inviteReceived, String s) {
+                                    inviteReceived.getRef().removeValue();
+                                }
+
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                }
+
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    Decline.setText("Declined");
+                    Decline.setEnabled(false);
+                }
+            });
+
+            final Button sendChat = view.findViewById(R.id.buttonSendChat);
+
+            sendChat.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intentChat = new Intent(viewGroup.getContext(), ChatActivity.class);
+                    viewGroup.getContext().startActivity(intentChat);
+                }
             });
 
             return view;
@@ -238,16 +371,15 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
         @Override
         public int getCount() { return inviteListSent.size(); }
+
         @Override
-        public Object getItem(int i) {
-            return null;
-        }
+        public Object getItem(int i) { return null; }
+
         @Override
-        public long getItemId(int i) {
-            return 0;
-        }
+        public long getItemId(int i) { return 0; }
+
         @Override
-        public View getView(int position, View view, ViewGroup viewGroup) {
+        public View getView(int position, View view, final ViewGroup viewGroup) {
 
             view = getLayoutInflater().inflate(R.layout.pendingmatcheslayout2,null);
 
@@ -271,42 +403,75 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             tvGame.setText(inviteListSent.get(position).inviteActivity);
             tvDayTime.setText(inviteListSent.get(position).inviteSlot);
             tvLocation.setText(distance + " Miles Away");
+
+            final Button sendChat = view.findViewById(R.id.buttonSendChat);
+
+            sendChat.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intentChat = new Intent(viewGroup.getContext(), ChatActivity.class);
+                    viewGroup.getContext().startActivity(intentChat);
+                }
+            });
+
             return view;
         }
     }
 
-//    class CustomAdapter3 extends BaseAdapter {
-//        @Override
-//        public int getCount() {
-//            return NAMES.length;
-//        }
-//        @Override
-//        public Object getItem(int i) {
-//            return null;
-//        }
-//        @Override
-//        public long getItemId(int i) {
-//            return 0;
-//        }
-//        @Override
-//        public View getView(int i, View view, ViewGroup viewGroup) {
-//
-//            view = getLayoutInflater().inflate(R.layout.currentmatcheslayout,null);
-//            TextView tvName = view.findViewById(R.id.tvName);
-//            TextView tvGame = view.findViewById(R.id.tvGame);
-//            TextView tvDayTime = view.findViewById(R.id.tvDayTime);
-//            TextView tvLocation = view.findViewById(R.id.tvLocation);
-//            ImageView ivPicture = view.findViewById(R.id.ivPicture);
-//
-//            tvName.setText(NAMES[i]);
-//            tvGame.setText(GAMES[i]);
-//            tvDayTime.setText(DAYTIME[i]);
-//            tvLocation.setText(LOCATION[i]);
-//            ivPicture.setImageResource(IMAGES[i]);
-//
-//            return view;
-//        }
-//    }
+    class CustomAdapter3 extends BaseAdapter {
+
+        private ArrayList<InviteClass> inviteListConfirmed;
+
+        public CustomAdapter3(ArrayList<InviteClass> inviteListConfirmed){
+            this.inviteListConfirmed = inviteListConfirmed;
+        }
+
+        @Override
+        public int getCount() { return inviteListConfirmed.size(); }
+
+        @Override
+        public Object getItem(int i) { return null; }
+
+        @Override
+        public long getItemId(int i) { return 0; }
+
+        @Override
+        public View getView(int position, View view, final ViewGroup viewGroup) {
+
+            view = getLayoutInflater().inflate(R.layout.currentmatcheslayout,null);
+
+            Location locationA = new Location("pointA");
+            locationA.setLatitude(inviteListConfirmed.get(position).inviteReceiverLatitude);
+            locationA.setLongitude(inviteListConfirmed.get(position).inviteReceiverLongitude);
+            Location locationB = new Location("pointB");
+            locationB.setLatitude(inviteListConfirmed.get(position).inviteSenderLatitude);
+            locationB.setLongitude(inviteListConfirmed.get(position).inviteSenderLongitude);
+
+            float distance = locationA.distanceTo(locationB) / 5280;
+
+            TextView tvName = view.findViewById(R.id.tvName);
+            TextView tvGame = view.findViewById(R.id.tvGame);
+            TextView tvDayTime = view.findViewById(R.id.tvDayTime);
+            TextView tvLocation = view.findViewById(R.id.tvLocation);
+            ImageView ivPicture = view.findViewById(R.id.ivPicture);
+
+            ivPicture.setImageResource(ProfilePictures[position]);
+            tvName.setText(inviteListConfirmed.get(position).inviteSenderName);
+            tvGame.setText(inviteListConfirmed.get(position).inviteActivity);
+            tvDayTime.setText(inviteListConfirmed.get(position).inviteSlot);
+            tvLocation.setText(distance + " Miles Away");
+
+            final Button sendChat = view.findViewById(R.id.buttonSendChat);
+
+            sendChat.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intentChat = new Intent(viewGroup.getContext(), ChatActivity.class);
+                    viewGroup.getContext().startActivity(intentChat);
+                }
+            });
+
+            return view;
+        }
+    }
 
     @Override
     public void onClick(View view) {

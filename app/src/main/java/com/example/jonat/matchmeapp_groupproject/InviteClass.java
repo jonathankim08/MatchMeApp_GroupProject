@@ -2,7 +2,7 @@ package com.example.jonat.matchmeapp_groupproject;
 
 public class InviteClass {
 
-    public String inviteSender, inviteReceiver, inviteSenderName, inviteReceiverName, inviteActivity, inviteSlot, inviteDay, inviteMonth, inviteStatus, inviteSenderReceiverCheck ;
+    public String inviteSender, inviteReceiver, inviteSenderName, inviteReceiverName, inviteActivity, inviteSlot, inviteDay, inviteMonth, inviteStatus, inviteSenderReceiverCheck, inviteConfirmedUser;
     public double inviteSenderLatitude, inviteSenderLongitude, inviteReceiverLatitude, inviteReceiverLongitude;
 
     public InviteClass() {
@@ -23,5 +23,6 @@ public class InviteClass {
         this.inviteReceiverLatitude = inviteReceiverLatitude;
         this.inviteReceiverLongitude = inviteReceiverLongitude;
         this.inviteSenderReceiverCheck = inviteSender + inviteReceiver + inviteActivity + inviteDay + inviteMonth + inviteSlot;
+        this.inviteConfirmedUser = "";
     }
 }
