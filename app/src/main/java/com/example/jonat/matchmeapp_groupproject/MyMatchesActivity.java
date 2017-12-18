@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -61,7 +63,9 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot inviteReceived : dataSnapshot.getChildren()){
                     InviteClass inviteClass = inviteReceived.getValue(InviteClass.class);
-                    inviteListReceived.add(inviteClass);
+                    if (inviteClass.inviteStatus.equals("Open")) {
+                        inviteListReceived.add(inviteClass);
+                    }
                 }
                 CustomAdapter1 customAdapter1 = new CustomAdapter1(inviteListReceived);
                 lvPendingMatchesReceived.setAdapter(customAdapter1);
@@ -136,7 +140,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             return 0;
         }
         @Override
-        public View getView(int position, View view, ViewGroup viewGroup) {
+        public View getView(final int position, View view, ViewGroup viewGroup) {
 
             view = getLayoutInflater().inflate(R.layout.pendingmatcheslayout,null);
 
@@ -160,6 +164,65 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             tvGame.setText(inviteListReceived.get(position).inviteActivity);
             tvDayTime.setText(inviteListReceived.get(position).inviteSlot);
             tvLocation.setText(distance + " Miles Away");
+
+            final Button Accept = view.findViewById(R.id.buttonAccept);
+
+            Accept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final DatabaseReference inviteRef = db.getReference("Invites");
+                    final DatabaseReference matchPoolRef = db.getReference("MatchPool");
+                    inviteRef.orderByChild("inviteSenderReceiverCheck").equalTo(inviteListReceived.get(position).inviteSender + inviteListReceived.get(position).inviteReceiver + inviteListReceived.get(position).inviteActivity + inviteListReceived.get(position).inviteDay + inviteListReceived.get(position).inviteMonth + inviteListReceived.get(position).inviteSlot).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot inviteReceived) {
+                            inviteRef.addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot inviteReceived, String s) {
+                                    //inviteReceived.getRef().child("inviteStatus").setValue("Matches").toString();
+                                    String inviteKey = inviteReceived.getKey();
+                                    inviteRef.child(inviteKey).child("inviteStatus").setValue("Matched");
+                                }
+
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                }
+
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    matchPoolRef.orderByChild("MatchPoolUserId").equalTo(inviteListReceived.get(position).inviteSender).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
+            });
 
             return view;
         }

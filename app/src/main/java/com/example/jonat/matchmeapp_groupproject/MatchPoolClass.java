@@ -18,7 +18,7 @@ public class MatchPoolClass {
         this.matchPoolSlot = matchPoolSlot;
         this.matchPoolStatus = matchPoolStatus;
         this.matchString = matchPoolActivity+matchPoolDay+matchPoolMonth+matchPoolSlot;
-        this.matchDuplicateSlot = matchPoolUserId + matchPoolActivity+matchPoolDay+matchPoolMonth+matchPoolSlot;
+        this.matchDuplicateSlot = matchPoolUserId+matchPoolActivity+matchPoolDay+matchPoolMonth+matchPoolSlot;
         this.matchPoolProfileName = matchPoolProfileName;
         this.matchPoolProfileTennisLevel = matchPoolProfileTennisLevel;
         this.matchPoolProfileChessLevel = matchPoolProfileChessLevel;
