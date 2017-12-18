@@ -38,7 +38,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
     ArrayList<InviteClass> inviteListSent = new ArrayList<>();
     ArrayList<InviteClass> inviteListConfirmed = new ArrayList<>();      ;
 
-    private int[] ProfilePictures = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
+    private int ProfilePictures = R.drawable.a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +175,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             TextView tvDayTime = view.findViewById(R.id.tvDayTime);
             TextView tvLocation = view.findViewById(R.id.tvLocation);
 
-            ivPicture.setImageResource(ProfilePictures[position]);
+            ivPicture.setImageResource(ProfilePictures);
             tvName.setText(inviteListReceived.get(position).inviteSenderName);
             tvGame.setText(inviteListReceived.get(position).inviteActivity);
             tvDayTime.setText(inviteListReceived.get(position).inviteSlot);
@@ -406,7 +406,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             TextView tvDayTime = view.findViewById(R.id.tvDayTime);
             TextView tvLocation = view.findViewById(R.id.tvLocation);
 
-            ivPicture.setImageResource(ProfilePictures[position]);
+            ivPicture.setImageResource(ProfilePictures);
             tvName.setText(inviteListSent.get(position).inviteReceiverName);
             tvGame.setText(inviteListSent.get(position).inviteActivity);
             tvDayTime.setText(inviteListSent.get(position).inviteSlot);
@@ -463,7 +463,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             TextView tvLocation = view.findViewById(R.id.tvLocation);
             ImageView ivPicture = view.findViewById(R.id.ivPicture);
 
-            ivPicture.setImageResource(ProfilePictures[position]);
+            ivPicture.setImageResource(ProfilePictures);
             tvName.setText(inviteListConfirmed.get(position).inviteConfirmedUser);
             tvGame.setText(inviteListConfirmed.get(position).inviteActivity);
             tvDayTime.setText(inviteListConfirmed.get(position).inviteSlot);

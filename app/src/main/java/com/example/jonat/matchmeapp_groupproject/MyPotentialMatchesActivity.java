@@ -47,7 +47,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     ArrayList<MatchPoolClass> matchPoolList = new ArrayList<>();
 
-    private int[] ProfilePictures = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
+    private int ProfilePictures = R.drawable.a;
     public double[] latLong = new double[2];
     public String username;
 
@@ -208,7 +208,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             float distance = locationA.distanceTo(locationB) / 5280;
             distance = (float) Math.round(distance * 10) / 10;
 
-            ProfilePicture.setImageResource(ProfilePictures[position]);
+            ProfilePicture.setImageResource(ProfilePictures);
             Name.setText(matchPoolList.get(position).matchPoolProfileName);
             Availability.setText(matchPoolList.get(position).matchPoolSlot);
             Location.setText(distance + " Miles Away");
