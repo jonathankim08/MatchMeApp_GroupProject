@@ -50,6 +50,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
     private int ProfilePictures = R.drawable.a;
     public double[] latLong = new double[2];
     public String username;
+    public String[] skillLevel = new String[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,8 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
 
         mAuth = FirebaseAuth.getInstance();
 
+        String filter = Filter.getSelectedItem().toString();
+
         final DatabaseReference matchPoolRef = db.getReference("MatchPool");
         final DatabaseReference profileRef = db.getReference("Profiles");
 
@@ -86,6 +89,8 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
                         latLong[0] = findProfile.profileLatitude;
                         latLong[1] = findProfile.profileLongitude;
                         username = findProfile.profileName;
+                        skillLevel[0] = findProfile.profileTennisLevel;
+                        skillLevel[1] = findProfile.profileChessLevel;
                     }
 
                     @Override
@@ -116,29 +121,123 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             }
         });
 
-        matchPoolRef.orderByChild("matchString").equalTo(activity + day + month + slot).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot match : dataSnapshot.getChildren()){
-                   final String userId = match.child("matchPoolUserId").getValue().toString();
+        if (filter.equals("Availability")) {
 
-                    if (!userId.equals(mAuth.getCurrentUser().getUid()) ){
-                        MatchPoolClass matchPoolClass = match.getValue(MatchPoolClass.class);
-                        if (matchPoolClass.matchPoolStatus.equals("Open")) {
-                            matchPoolList.add(matchPoolClass);
+            matchPoolRef.orderByChild("matchString").equalTo(activity + day + month + slot).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot match : dataSnapshot.getChildren()) {
+                        final String userId = match.child("matchPoolUserId").getValue().toString();
+
+                        if (!userId.equals(mAuth.getCurrentUser().getUid())) {
+                            MatchPoolClass matchPoolClass = match.getValue(MatchPoolClass.class);
+                            if (matchPoolClass.matchPoolStatus.equals("Open")) {
+                                matchPoolList.add(matchPoolClass);
+                            }
                         }
                     }
+                    CustomAdapter customAdapter = new CustomAdapter(matchPoolList);
+                    MyPotentialMatches.setAdapter(customAdapter);
                 }
-                CustomAdapter customAdapter = new CustomAdapter(matchPoolList);
-                MyPotentialMatches.setAdapter(customAdapter);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        } else if (filter.equals("Skill Level")) {
+            matchPoolRef.orderByChild("matchString2").equalTo(day + month + slot + skillLevel[0]).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot match : dataSnapshot.getChildren()) {
+                        final String userId = match.child("matchPoolUserId").getValue().toString();
 
+                        if (!userId.equals(mAuth.getCurrentUser().getUid())) {
+                            MatchPoolClass matchPoolClass = match.getValue(MatchPoolClass.class);
+                            if (matchPoolClass.matchPoolStatus.equals("Open")) {
+                                matchPoolList.add(matchPoolClass);
+                            }
+                        }
+                    }
+                    CustomAdapter customAdapter = new CustomAdapter(matchPoolList);
+                    MyPotentialMatches.setAdapter(customAdapter);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            matchPoolRef.orderByChild("matchString2").equalTo(day + month + slot + skillLevel[1]).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot match : dataSnapshot.getChildren()) {
+                        final String userId = match.child("matchPoolUserId").getValue().toString();
+
+                        if (!userId.equals(mAuth.getCurrentUser().getUid())) {
+                            MatchPoolClass matchPoolClass = match.getValue(MatchPoolClass.class);
+                            if (matchPoolClass.matchPoolStatus.equals("Open")) {
+                                matchPoolList.add(matchPoolClass);
+                            }
+                        }
+                    }
+                    CustomAdapter customAdapter = new CustomAdapter(matchPoolList);
+                    MyPotentialMatches.setAdapter(customAdapter);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            matchPoolRef.orderByChild("matchString3").equalTo(day + month + slot + skillLevel[0]).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot match : dataSnapshot.getChildren()) {
+                        final String userId = match.child("matchPoolUserId").getValue().toString();
+
+                        if (!userId.equals(mAuth.getCurrentUser().getUid())) {
+                            MatchPoolClass matchPoolClass = match.getValue(MatchPoolClass.class);
+                            if (matchPoolClass.matchPoolStatus.equals("Open")) {
+                                matchPoolList.add(matchPoolClass);
+                            }
+                        }
+                    }
+                    CustomAdapter customAdapter = new CustomAdapter(matchPoolList);
+                    MyPotentialMatches.setAdapter(customAdapter);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            matchPoolRef.orderByChild("matchString3").equalTo(day + month + slot + skillLevel[1]).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot match : dataSnapshot.getChildren()) {
+                        final String userId = match.child("matchPoolUserId").getValue().toString();
+
+                        if (!userId.equals(mAuth.getCurrentUser().getUid())) {
+                            MatchPoolClass matchPoolClass = match.getValue(MatchPoolClass.class);
+                            if (matchPoolClass.matchPoolStatus.equals("Open")) {
+                                matchPoolList.add(matchPoolClass);
+                            }
+                        }
+                    }
+                    CustomAdapter customAdapter = new CustomAdapter(matchPoolList);
+                    MyPotentialMatches.setAdapter(customAdapter);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     class CustomAdapter extends BaseAdapter {

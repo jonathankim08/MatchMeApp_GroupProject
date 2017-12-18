@@ -1,10 +1,7 @@
 package com.example.jonat.matchmeapp_groupproject;
 
 public class MatchPoolClass {
-    public String matchPoolUserId, matchPoolActivity, matchPoolDay, matchPoolMonth, matchPoolSlot, matchPoolStatus;
-    public String matchString, matchDuplicateSlot;
-
-    public String matchPoolProfileName, matchPoolProfileTennisLevel, matchPoolProfileChessLevel;
+    public String matchPoolUserId, matchPoolActivity, matchPoolDay, matchPoolMonth, matchPoolSlot, matchPoolStatus, matchString, matchString2, matchString3, matchDuplicateSlot, matchPoolProfileName, matchPoolProfileTennisLevel, matchPoolProfileChessLevel;
     public double matchPoolProfileLatitude, matchPoolProfileLongitude;
 
     public MatchPoolClass() {
@@ -17,8 +14,10 @@ public class MatchPoolClass {
         this.matchPoolMonth = matchPoolMonth;
         this.matchPoolSlot = matchPoolSlot;
         this.matchPoolStatus = matchPoolStatus;
-        this.matchString = matchPoolActivity+matchPoolDay+matchPoolMonth+matchPoolSlot;
-        this.matchDuplicateSlot = matchPoolUserId+matchPoolActivity+matchPoolDay+matchPoolMonth+matchPoolSlot;
+        this.matchString = matchPoolActivity + matchPoolDay + matchPoolMonth + matchPoolSlot;
+        this.matchString2 = matchPoolDay + matchPoolMonth + matchPoolSlot + matchPoolProfileTennisLevel;
+        this.matchString3 = matchPoolDay + matchPoolMonth + matchPoolSlot + matchPoolProfileChessLevel;
+        this.matchDuplicateSlot = matchPoolUserId + matchPoolActivity + matchPoolDay + matchPoolMonth + matchPoolSlot;
         this.matchPoolProfileName = matchPoolProfileName;
         this.matchPoolProfileTennisLevel = matchPoolProfileTennisLevel;
         this.matchPoolProfileChessLevel = matchPoolProfileChessLevel;

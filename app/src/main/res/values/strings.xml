@@ -67,7 +67,6 @@
 
     <string-array name="filter_array">
         <item>Availability</item>
-        <item>Location</item>
         <item>Skill Level</item>
     </string-array>
 
