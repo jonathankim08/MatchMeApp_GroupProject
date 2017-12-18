@@ -25,14 +25,4 @@ public class MatchPoolClass {
         this.matchPoolProfileLatitude = matchPoolProfileLatitude;
         this.matchPoolProfileLongitude = matchPoolProfileLongitude;
     }
-
-    public void UpdateStatustoInvited(String inviteUsername)
-    {
-        this.matchPoolStatus = "Invited";
-    }
-    public void UpdateStatustoScheduled(String inviteUsername)
-    {
-        this.matchPoolStatus = "Scheduled";
-    }
-
 }
