@@ -3,13 +3,10 @@
 
     <item
         android:id="@+id/homeMenu"
-        android:title="Home" />
-    <item
-        android:id="@+id/myPotentialMatchesMenu"
-        android:title="Potential Matches" />
+        android:title="MatchMe" />
     <item
         android:id="@+id/myMatchesMenu"
-        android:title="Confirmed Matches" />
+        android:title="MyMatches" />
     <item
         android:id="@+id/chatMenu"
         android:title="ChatBox" />
@@ -18,5 +15,5 @@
         android:title="Profile" />
     <item
         android:id="@+id/logoutMenu"
-        android:title="Logout" />
+        android:title="LogOut" />
 </menu>

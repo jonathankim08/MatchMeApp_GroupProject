@@ -125,6 +125,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         lvConfirmedMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
             }
         });
 
@@ -166,6 +167,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             locationB.setLongitude(inviteListReceived.get(position).inviteSenderLongitude);
 
             float distance = locationA.distanceTo(locationB) / 5280;
+            distance = (float) Math.round(distance * 10) / 10;
 
             ImageView ivPicture = view.findViewById(R.id.ivPicture);
             TextView tvName = view.findViewById(R.id.tvName);
@@ -396,6 +398,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             locationB.setLongitude(inviteListSent.get(position).inviteSenderLongitude);
 
             float distance = locationA.distanceTo(locationB) / 5280;
+            distance = (float) Math.round(distance * 10) / 10;
 
             ImageView ivPicture = view.findViewById(R.id.ivPicture);
             TextView tvName = view.findViewById(R.id.tvName);
@@ -452,6 +455,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             locationB.setLongitude(inviteListConfirmed.get(position).inviteSenderLongitude);
 
             float distance = locationA.distanceTo(locationB) / 5280;
+            distance = (float) Math.round(distance * 10) / 10;
 
             TextView tvName = view.findViewById(R.id.tvName);
             TextView tvGame = view.findViewById(R.id.tvGame);
@@ -460,7 +464,7 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
             ImageView ivPicture = view.findViewById(R.id.ivPicture);
 
             ivPicture.setImageResource(ProfilePictures[position]);
-            tvName.setText(inviteListConfirmed.get(position).inviteSenderName);
+            tvName.setText(inviteListConfirmed.get(position).inviteConfirmedUser);
             tvGame.setText(inviteListConfirmed.get(position).inviteActivity);
             tvDayTime.setText(inviteListConfirmed.get(position).inviteSlot);
             tvLocation.setText(distance + " Miles Away");
@@ -496,9 +500,6 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
         if (item.getItemId() == R.id.homeMenu){
             Intent intentHome = new Intent(this, HomepageActivity.class);
             this.startActivity(intentHome);
-        } else if(item.getItemId() == R.id.myPotentialMatchesMenu){
-            Intent intentMyPotentialMatches = new Intent(this, MyPotentialMatchesActivity.class);
-            this.startActivity(intentMyPotentialMatches);
         } else if(item.getItemId() == R.id.myMatchesMenu){
             Intent intentMyMatches = new Intent(this, MyMatchesActivity.class);
             this.startActivity(intentMyMatches);
