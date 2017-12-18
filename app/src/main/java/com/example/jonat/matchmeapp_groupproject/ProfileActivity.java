@@ -131,9 +131,6 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
         if (item.getItemId() == R.id.homeMenu){
             Intent intentHome = new Intent(this, HomepageActivity.class);
             this.startActivity(intentHome);
-        } else if(item.getItemId() == R.id.myPotentialMatchesMenu){
-            Intent intentMyPotentialMatches = new Intent(this, MyPotentialMatchesActivity.class);
-            this.startActivity(intentMyPotentialMatches);
         } else if(item.getItemId() == R.id.myMatchesMenu){
             Intent intentMyMatches = new Intent(this, MyMatchesActivity.class);
             this.startActivity(intentMyMatches);

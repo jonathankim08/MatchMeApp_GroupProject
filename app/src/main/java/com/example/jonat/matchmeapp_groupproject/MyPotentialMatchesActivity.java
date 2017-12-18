@@ -61,13 +61,14 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         final String day = intent.getStringExtra("Day");
         final String month = intent.getStringExtra("Month");
         final String slot = intent.getStringExtra("Slot");
-        final String profileEmailAddress = intent.getStringExtra("Username");
 
         AppTitle = (TextView) findViewById(R.id.textViewAppTitle);
         PageTitle = (TextView) findViewById(R.id.textViewPageTitle);
         FilterPrompt = (TextView) findViewById(R.id.textViewFilterPrompt);
         Filter = (Spinner) findViewById(R.id.spinnerFilter);
         MyPotentialMatches = (ListView) findViewById(R.id.listViewMyPotentialMatches);
+
+        PageTitle.setText("Potential " + activity + " Matches from " + slot + " on " + month + " " + day);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -205,6 +206,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             locationB.setLongitude(matchPoolList.get(position).matchPoolProfileLongitude);
 
             float distance = locationA.distanceTo(locationB) / 5280;
+            distance = (float) Math.round(distance * 10) / 10;
 
             ProfilePicture.setImageResource(ProfilePictures[position]);
             Name.setText(matchPoolList.get(position).matchPoolProfileName);
@@ -239,9 +241,6 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         if (item.getItemId() == R.id.homeMenu){
             Intent intentHome = new Intent(this, HomepageActivity.class);
             this.startActivity(intentHome);
-        } else if(item.getItemId() == R.id.myPotentialMatchesMenu){
-            Intent intentMyPotentialMatches = new Intent(this, MyPotentialMatchesActivity.class);
-            this.startActivity(intentMyPotentialMatches);
         } else if(item.getItemId() == R.id.myMatchesMenu){
             Intent intentMyMatches = new Intent(this, MyMatchesActivity.class);
             this.startActivity(intentMyMatches);
