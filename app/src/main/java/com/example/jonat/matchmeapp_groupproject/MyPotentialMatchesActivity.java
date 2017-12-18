@@ -146,7 +146,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
                 }
             });
         } else if (filter.equals("Skill Level")) {
-            matchPoolRef.orderByChild("matchString2").equalTo(day + month + slot + skillLevel[0]).addListenerForSingleValueEvent(new ValueEventListener() {
+            matchPoolRef.orderByChild("matchString2").equalTo(activity + day + month + skillLevel[0]).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot match : dataSnapshot.getChildren()) {
@@ -169,7 +169,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
                 }
             });
 
-            matchPoolRef.orderByChild("matchString2").equalTo(day + month + slot + skillLevel[1]).addListenerForSingleValueEvent(new ValueEventListener() {
+            matchPoolRef.orderByChild("matchString2").equalTo(activity + day + month + skillLevel[1]).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot match : dataSnapshot.getChildren()) {
@@ -192,7 +192,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
                 }
             });
 
-            matchPoolRef.orderByChild("matchString3").equalTo(day + month + slot + skillLevel[0]).addListenerForSingleValueEvent(new ValueEventListener() {
+            matchPoolRef.orderByChild("matchString3").equalTo(activity + day + month + skillLevel[0]).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot match : dataSnapshot.getChildren()) {
@@ -215,7 +215,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
                 }
             });
 
-            matchPoolRef.orderByChild("matchString3").equalTo(day + month + slot + skillLevel[1]).addListenerForSingleValueEvent(new ValueEventListener() {
+            matchPoolRef.orderByChild("matchString3").equalTo(activity + day + month + skillLevel[1]).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot match : dataSnapshot.getChildren()) {
