@@ -133,7 +133,8 @@ public class ChatActivity extends Activity implements View.OnClickListener {
         DatabaseReference chatRef = database.getReference("Chat");
 
         //String messagesReceiver =
-        chatRef.child(messagesSender).push().setValue(editTextChat.getText().toString());
+        //chatRef.child(messagesSender).push().setValue(editTextChat.getText().toString());
+        chatRef.push().setValue(editTextChat.getText().toString());
     }
 
     @Override
