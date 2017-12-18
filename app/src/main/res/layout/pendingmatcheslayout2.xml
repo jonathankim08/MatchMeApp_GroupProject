@@ -61,11 +61,11 @@
         android:id="@+id/buttonSendChat"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_below="@+id/tvGame"
-        android:layout_marginLeft="61dp"
-        android:layout_marginStart="61dp"
-        android:layout_toEndOf="@+id/tvGame"
-        android:layout_toRightOf="@+id/tvGame"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tvDayTime"
+        android:layout_marginEnd="61dp"
+        android:layout_marginRight="61dp"
         android:text="Send Chat"
         android:textSize="14dp" />
 

@@ -65,11 +65,11 @@ public class HomepageActivity extends Activity {
                 month = monthSpinner.getSelectedItem().toString();
 
                 if (chessRadioButton.isChecked()) {
-                    activity = "chess";
+                    activity = "Chess";
                     addToDatabase(day, month, i);
                     sendToPotential(activity, day, month, i);
                 } else if (tennisRadioButton.isChecked()) {
-                    activity = "tennis";
+                    activity = "Tennis";
                     addToDatabase(day, month, i);
                     sendToPotential(activity, day, month, i);
                 } else if (!(tennisRadioButton.isChecked() && chessRadioButton.isChecked())) {
@@ -80,9 +80,6 @@ public class HomepageActivity extends Activity {
         }
 
         private void addToDatabase(String day, String month, int i) {
-            Intent intent = getIntent();
-            final String profileEmailAddress = intent.getStringExtra("Username");
-
             final String tempDay = day;
             final String tempMonth = month;
             final int tempI = i;
@@ -92,7 +89,7 @@ public class HomepageActivity extends Activity {
             final DatabaseReference matchPoolRef = db.getReference("MatchPool");
             final DatabaseReference profileRef = db.getReference("Profiles");
 
-            profileRef.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            profileRef.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     profileRef.child(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
@@ -111,17 +108,15 @@ public class HomepageActivity extends Activity {
                             tempProfileLatitude = profileClass.profileLatitude;
                             tempProfileLongitude = profileClass.profileLongitude;
 
+                            final MatchPoolClass myMatchPool = new MatchPoolClass(mAuth.getCurrentUser().getUid(), activity, tempDay, tempMonth, slots[tempI],"Open", tempProfileName, tempProfileChessLevel, tempProfileTennisLevel, tempProfileLatitude, tempProfileLongitude);
 
-                            //Toast.makeText(HomepageActivity.this, tempProfileName + "_"+ tempMonth, Toast.LENGTH_SHORT).show();
-                            final MatchPoolClass myMatchPool = new MatchPoolClass(mAuth.getCurrentUser().getUid(), activity, tempDay, tempMonth, slots[tempI],"Open",tempProfileName, tempProfileChessLevel, tempProfileTennisLevel, tempProfileLatitude, tempProfileLongitude);
-
-                            matchPoolRef.orderByChild("matchDuplicateSlot").equalTo(mAuth.getCurrentUser().getUid()+ activity + tempDay + tempMonth + slots[tempI]).addValueEventListener(new ValueEventListener() {
+                            matchPoolRef.orderByChild("matchDuplicateSlot").equalTo(mAuth.getCurrentUser().getUid()+ activity + tempDay + tempMonth + slots[tempI]).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.getValue() == null){
                                         matchPoolRef.push().setValue(myMatchPool);
-                                    }else {
-                                        Toast.makeText(HomepageActivity.this, "slot already exists", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(HomepageActivity.this, "The chosen slot already exists!", Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
@@ -160,10 +155,6 @@ public class HomepageActivity extends Activity {
 
                 }
             });
-
-
-
-
         }
 
     class CustomAdapter extends BaseAdapter {
@@ -192,7 +183,6 @@ public class HomepageActivity extends Activity {
             textViewSlot.setText(slots[i]);
 
             return view;
-
         }
     }
 
@@ -205,47 +195,35 @@ public class HomepageActivity extends Activity {
     }
 
     private void sendToPotential(String activity, String day, String month, int i) {
-        Intent intent = getIntent();
-        String profileEmailAddress = intent.getStringExtra("Username");
 
-        Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
+        Intent intentMyPotentialMatches = new Intent(this, MyPotentialMatchesActivity.class);
         intentMyPotentialMatches.putExtra("Activity", activity);
         intentMyPotentialMatches.putExtra("Day", day);
         intentMyPotentialMatches.putExtra("Month", month);
         intentMyPotentialMatches.putExtra("Slot", slots[i]);
-        intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
+
         this.startActivity(intentMyPotentialMatches);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        Intent intent = getIntent();
-        String profileEmailAddress = intent.getStringExtra("Username");
-
         if (item.getItemId() == R.id.homeMenu){
-            Intent intentHome = new Intent(this,HomepageActivity.class);
-            intentHome.putExtra("Username", profileEmailAddress);
+            Intent intentHome = new Intent(this, HomepageActivity.class);
             this.startActivity(intentHome);
         } else if(item.getItemId() == R.id.myPotentialMatchesMenu){
-            Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
-            intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
+            Intent intentMyPotentialMatches = new Intent(this, MyPotentialMatchesActivity.class);
             this.startActivity(intentMyPotentialMatches);
         } else if(item.getItemId() == R.id.myMatchesMenu){
-            Intent intentMyMatches = new Intent(this,MyMatchesActivity.class);
-            intentMyMatches.putExtra("Username", profileEmailAddress);
+            Intent intentMyMatches = new Intent(this, MyMatchesActivity.class);
             this.startActivity(intentMyMatches);
         } else if (item.getItemId() == R.id.chatMenu){
-            Intent intentChat = new Intent(this,ChatActivity.class);
-            intentChat.putExtra("Username", profileEmailAddress);
+            Intent intentChat = new Intent(this, ChatActivity.class);
             this.startActivity(intentChat);
         } else if (item.getItemId() == R.id.profileMenu){
-            Intent intentProfile = new Intent(this,ProfileActivity.class);
-            intentProfile.putExtra("Username", profileEmailAddress);
+            Intent intentProfile = new Intent(this, ProfileActivity.class);
             this.startActivity(intentProfile);
         } else if (item.getItemId() == R.id.logoutMenu){
-            Intent intentLogout = new Intent(this,MainActivity.class);
-            intentLogout.putExtra("Username", profileEmailAddress);
+            Intent intentLogout = new Intent(this, MainActivity.class);
             this.startActivity(intentLogout);
         }
 

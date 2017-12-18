@@ -1,35 +1,27 @@
 package com.example.jonat.matchmeapp_groupproject;
 
-import java.lang.reflect.Array;
-
-/**
- * Created by neilsk on 12/6/17.
- */
-
 public class InviteClass {
 
-    public String inviteUsername, inviteReceiver, inviteActivity, inviteSlot, inviteDay, inviteMonth, inviteStatus;
+    public String inviteSender, inviteReceiver, inviteSenderName, inviteReceiverName, inviteActivity, inviteSlot, inviteDay, inviteMonth, inviteStatus, inviteSenderReceiverCheck ;
+    public double inviteSenderLatitude, inviteSenderLongitude, inviteReceiverLatitude, inviteReceiverLongitude;
 
     public InviteClass() {
     }
 
-    public InviteClass(String inviteUsername, String inviteReceiver, String inviteActivity, String inviteDay, String inviteMonth, String inviteSlot, String inviteStatus) {
-        this.inviteUsername = inviteUsername;
+    public InviteClass(String inviteSender, String inviteReceiver, String inviteSenderName, String inviteReceiverName, String inviteActivity, String inviteSlot, String inviteDay, String inviteMonth,  String inviteStatus, double inviteSenderLatitude, double inviteSenderLongitude, double inviteReceiverLatitude, double inviteReceiverLongitude) {
+        this.inviteSender = inviteSender;
         this.inviteReceiver = inviteReceiver;
+        this.inviteSenderName = inviteSenderName;
+        this.inviteReceiverName = inviteReceiverName;
         this.inviteActivity = inviteActivity;
         this.inviteSlot = inviteSlot;
         this.inviteDay = inviteDay;
         this.inviteMonth = inviteMonth;
         this.inviteStatus = inviteStatus;
-    }
-
-    public InviteClass(String inviteUsername, String inviteReceiver, MatchPoolClass matchPoolClass, String inviteStatus) {
-        this.inviteUsername = inviteUsername;
-        this.inviteReceiver = inviteReceiver;
-        this.inviteActivity = matchPoolClass.matchPoolActivity;
-        this.inviteSlot = matchPoolClass.matchPoolSlot;
-        this.inviteDay = matchPoolClass.matchPoolDay;
-        this.inviteMonth = matchPoolClass.matchPoolMonth;
-        this.inviteStatus = inviteStatus;
+        this.inviteSenderLatitude = inviteSenderLatitude;
+        this.inviteSenderLongitude = inviteSenderLongitude;
+        this.inviteReceiverLatitude = inviteReceiverLatitude;
+        this.inviteReceiverLongitude = inviteReceiverLongitude;
+        this.inviteSenderReceiverCheck = inviteSender + inviteReceiver + inviteActivity + inviteDay + inviteMonth + inviteSlot;
     }
 }

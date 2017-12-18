@@ -1,11 +1,5 @@
 package com.example.jonat.matchmeapp_groupproject;
 
-import android.media.Image;
-
-/**
- * Created by neilsk on 12/5/17.
- */
-
 public class ProfileClass {
 
     public String profileUserId, profileEmailAddress, profileName, profileAge, profileLocation, profileTennisLevel, profileChessLevel;

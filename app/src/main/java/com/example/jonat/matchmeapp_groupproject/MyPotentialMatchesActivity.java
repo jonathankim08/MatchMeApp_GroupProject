@@ -2,6 +2,7 @@ package com.example.jonat.matchmeapp_groupproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.constraint.solver.ArrayLinkedVariables;
@@ -41,18 +42,14 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
     private TextView AppTitle, PageTitle, FilterPrompt;
     private Spinner Filter;
     private ListView MyPotentialMatches;
-    public int nbPotentialMatches;
     private FirebaseAuth mAuth;
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     ArrayList<MatchPoolClass> matchPoolList = new ArrayList<>();
 
     private int[] ProfilePictures = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
-/*    private String[] Names = {"Joe","Meghan","Aaron","Kate"};
-    private String[] Availabilities = {"9:00-10:00 AM", "10:00-11:00 AM", "2:00-3:00 PM", "6:00-7:00 PM"};
-    private String[] Locations = {"0.7 Miles Away", "0.1 Miles Away", "2.4 Miles Away", "1.5 Miles Away"};
-    private String[] SkillLevels = {"Intermediate", "Intermediate", "Beginner", "Advanced"};
-*/
+    public double[] latLong = new double[2];
+    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +72,50 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         mAuth = FirebaseAuth.getInstance();
 
         final DatabaseReference matchPoolRef = db.getReference("MatchPool");
+        final DatabaseReference profileRef = db.getReference("Profiles");
 
-        matchPoolRef.orderByChild("matchString").equalTo(activity + day + month + slot).addValueEventListener(new ValueEventListener() {
+        profileRef.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                profileRef.child(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        ProfileClass findProfile = new ProfileClass();
+                        findProfile = dataSnapshot.getValue(ProfileClass.class);
+                        latLong[0] = findProfile.profileLatitude;
+                        latLong[1] = findProfile.profileLongitude;
+                        username = findProfile.profileName;
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        matchPoolRef.orderByChild("matchString").equalTo(activity + day + month + slot).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot match : dataSnapshot.getChildren()){
@@ -109,9 +148,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         }
 
         @Override
-        public int getCount() {
-            return matchPoolList.size();
-        }
+        public int getCount() { return matchPoolList.size(); }
 
         @Override
         public Object getItem(int i) {
@@ -124,7 +161,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
         }
 
         @Override
-        public View getView(final int position, View view, ViewGroup viewGroup) {
+        public View getView(final int position, View view, final ViewGroup viewGroup) {
 
             view = getLayoutInflater().inflate(R.layout.potentialmatcheslayout, null);
 
@@ -133,14 +170,15 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
             TextView Availability = view.findViewById(R.id.textViewAvailability);
             TextView Location = view.findViewById(R.id.textViewLocation);
             TextView SkillLevel = view.findViewById(R.id.textViewSkillLevel);
+
+            final DatabaseReference inviteRef = db.getReference("Invites");
+
             final Button Invite = view.findViewById(R.id.buttonInvite);
             Invite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(MyPotentialMatchesActivity.this, "You have invited " + matchPoolList.get(position).matchPoolProfileName, Toast.LENGTH_SHORT).show();
-                    InviteClass inviteClass = new InviteClass(mAuth.getCurrentUser().getUid(), matchPoolList.get(position).matchPoolUserId, matchPoolList.get(position), "Open");
-
-                    DatabaseReference inviteRef = db.getReference("Invite");
+                    Toast.makeText(MyPotentialMatchesActivity.this, "You have invited " + matchPoolList.get(position).matchPoolProfileName + "!", Toast.LENGTH_SHORT).show();
+                    InviteClass inviteClass = new InviteClass(mAuth.getCurrentUser().getUid(), matchPoolList.get(position).matchPoolUserId, username, matchPoolList.get(position).matchPoolProfileName, matchPoolList.get(position).matchPoolActivity, matchPoolList.get(position).matchPoolSlot, matchPoolList.get(position).matchPoolDay, matchPoolList.get(position).matchPoolMonth, "Open", latLong[0], latLong[1], matchPoolList.get(position).matchPoolProfileLatitude, matchPoolList.get(position).matchPoolProfileLongitude);
                     inviteRef.push().setValue(inviteClass);
                     Invite.setText("Invited");
                     Invite.setEnabled(false);
@@ -149,16 +187,33 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
 
             Button ViewProfile = view.findViewById(R.id.buttonViewProfile);
 
+            ViewProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent otherUsers = new Intent(viewGroup.getContext(), OtherUsersProfiles.class);
+                    otherUsers.putExtra("otherProfileId", matchPoolList.get(position).matchPoolUserId);
+                    viewGroup.getContext().startActivity(otherUsers);
+                }
+            });
+
+            Location locationA = new Location("pointA");
+            locationA.setLatitude(latLong[0]);
+            locationA.setLongitude(latLong[1]);
+            Location locationB = new Location("pointB");
+            locationB.setLatitude(matchPoolList.get(position).matchPoolProfileLatitude);
+            locationB.setLongitude(matchPoolList.get(position).matchPoolProfileLongitude);
+
+            float distance = locationA.distanceTo(locationB) / 5280;
+
             ProfilePicture.setImageResource(ProfilePictures[position]);
             Name.setText(matchPoolList.get(position).matchPoolProfileName);
             Availability.setText(matchPoolList.get(position).matchPoolSlot);
-            Location.setText("miles away");
-            if (matchPoolList.get(position).matchPoolActivity == "tennis"){
+            Location.setText(distance + " Miles Away");
+            if (matchPoolList.get(position).matchPoolActivity == "Tennis"){
                 SkillLevel.setText(matchPoolList.get(position).matchPoolProfileTennisLevel);
             } else {
                 SkillLevel.setText(matchPoolList.get(position).matchPoolProfileChessLevel);
             }
-
 
             return view;
         }
@@ -168,6 +223,7 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
     public void onClick(View view) {
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -179,33 +235,23 @@ public class MyPotentialMatchesActivity extends Activity implements View.OnClick
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        Intent intent = getIntent();
-        String profileEmailAddress = intent.getStringExtra("Username");
-
         if (item.getItemId() == R.id.homeMenu){
-            Intent intentHome = new Intent(this,HomepageActivity.class);
-            intentHome.putExtra("Username", profileEmailAddress);
+            Intent intentHome = new Intent(this, HomepageActivity.class);
             this.startActivity(intentHome);
         } else if(item.getItemId() == R.id.myPotentialMatchesMenu){
-            Intent intentMyPotentialMatches = new Intent(this,MyPotentialMatchesActivity.class);
-            intentMyPotentialMatches.putExtra("Username", profileEmailAddress);
+            Intent intentMyPotentialMatches = new Intent(this, MyPotentialMatchesActivity.class);
             this.startActivity(intentMyPotentialMatches);
         } else if(item.getItemId() == R.id.myMatchesMenu){
-            Intent intentMyMatches = new Intent(this,MyMatchesActivity.class);
-            intentMyMatches.putExtra("Username", profileEmailAddress);
+            Intent intentMyMatches = new Intent(this, MyMatchesActivity.class);
             this.startActivity(intentMyMatches);
         } else if (item.getItemId() == R.id.chatMenu){
-            Intent intentChat = new Intent(this,ChatActivity.class);
-            intentChat.putExtra("Username", profileEmailAddress);
+            Intent intentChat = new Intent(this, ChatActivity.class);
             this.startActivity(intentChat);
         } else if (item.getItemId() == R.id.profileMenu){
-            Intent intentProfile = new Intent(this,ProfileActivity.class);
-            intentProfile.putExtra("Username", profileEmailAddress);
+            Intent intentProfile = new Intent(this, ProfileActivity.class);
             this.startActivity(intentProfile);
         } else if (item.getItemId() == R.id.logoutMenu){
-            Intent intentLogout = new Intent(this,MainActivity.class);
-            intentLogout.putExtra("Username", profileEmailAddress);
+            Intent intentLogout = new Intent(this, MainActivity.class);
             this.startActivity(intentLogout);
         }
 
