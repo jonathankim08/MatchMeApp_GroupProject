@@ -66,11 +66,15 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
                     if (inviteClass.inviteStatus.equals("Open")) {
                         inviteListReceived.add(inviteClass);
                     } else {
+                        String inviteKey = inviteReceived.getKey();
+                        inviteRef.child(inviteKey).child("inviteConfirmedUser").setValue(inviteClass.inviteSenderName);
                         inviteListConfirmed.add(inviteClass);
                     }
                 }
                 CustomAdapter1 customAdapter1 = new CustomAdapter1(inviteListReceived);
                 lvPendingMatchesReceived.setAdapter(customAdapter1);
+                CustomAdapter3 customAdapter3 = new CustomAdapter3(inviteListConfirmed);
+                lvConfirmedMatches.setAdapter(customAdapter3);
             }
 
             @Override
@@ -87,11 +91,15 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
                     if (inviteClass.inviteStatus.equals("Open")) {
                         inviteListSent.add(inviteClass);
                     } else {
+                        String inviteKey = inviteSent.getKey();
+                        inviteRef.child(inviteKey).child("inviteConfirmedUser").setValue(inviteClass.inviteReceiverName);
                         inviteListConfirmed.add(inviteClass);
                     }
                 }
                 CustomAdapter2 customAdapter2 = new CustomAdapter2(inviteListSent);
                 lvPendingMatchesSent.setAdapter(customAdapter2);
+                CustomAdapter3 customAdapter3 = new CustomAdapter3(inviteListConfirmed);
+                lvConfirmedMatches.setAdapter(customAdapter3);
             }
 
             @Override
@@ -99,9 +107,6 @@ public class MyMatchesActivity extends Activity implements View.OnClickListener{
 
             }
         });
-
-        CustomAdapter3 customAdapter3 = new CustomAdapter3(inviteListConfirmed);
-        lvConfirmedMatches.setAdapter(customAdapter3);
 
         lvPendingMatchesReceived.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
